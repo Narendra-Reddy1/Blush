@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - NormalGravity
+  - InverseGravity
+  - EnemySoftSpot
+  - Enemy
+  - Merchant
+  - PushableBox
+  - Collectable
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Ground
+  - PlayerA
+  - PlayerB
+  - Background
+  - Enemy
+  - PlayerA_Color_1
+  - PlayerA_Color_2
+  - PlayerA_Color_3
+  - PlayerB_Color_1
+  - PlayerB_Color_2
+  - PlayerB_Color_3
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 4140267469
+    locked: 0
+  - name: Environment
+    uniqueID: 148074767
+    locked: 0
+  - name: EnemySoftPoint
+    uniqueID: 3017496003
+    locked: 0
+  - name: Platform
+    uniqueID: 3780005021
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Enemy
+    uniqueID: 1976915475
+    locked: 0
+  - name: Player
+    uniqueID: 807720663
+    locked: 0
+  - name: Collectable
+    uniqueID: 418863219
+    locked: 0
