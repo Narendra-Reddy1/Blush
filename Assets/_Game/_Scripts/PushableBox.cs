@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Naren_Dev
@@ -9,12 +10,14 @@ namespace Naren_Dev
 
         #region Variables
 
-        [Range(1, 2)]
+        [Range(1, 4)]
         [SerializeField] private int m_pushCount = 1;
+        [SerializeField] private Collider2D m_groundCollider;
         //[SerializeField] private LayerMask m_layermask;
         [SerializeField] private Rigidbody2D m_pushableRb;
         [SerializeField] private BoxCollider2D m_pushBoxCollider;
         private Collider2D[] m_colliders = new Collider2D[2];
+        List<Collider2D> contactColliders;
         //public float speed = 1f;
 
         #endregion
@@ -23,7 +26,8 @@ namespace Naren_Dev
 
         private void Awake()
         {
-            _CheckDependencies();
+            _Init();
+
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -31,8 +35,13 @@ namespace Naren_Dev
             switch (other.collider.tag)
             {
                 case "Player":
-                    int i = GetComponent<BoxCollider2D>().GetContacts(m_colliders);
-                    if (i == m_pushCount)
+                    contactColliders=new List<Collider2D>();
+                    int i = m_pushBoxCollider.GetContacts(contactColliders);
+                    //contactColliders = m_colliders.ToList();
+                    if (contactColliders.Contains(m_groundCollider))
+                        contactColliders.Remove(m_groundCollider);
+                    Debug.Log($"++ Count: {i}");
+                    if (contactColliders.Count == m_pushCount)
                     {
                         m_pushableRb.isKinematic = false;
                         m_pushableRb.constraints = RigidbodyConstraints2D.None;
@@ -66,11 +75,15 @@ namespace Naren_Dev
             switch (other.collider.tag)
             {
                 case "Player":
-                    m_pushableRb.isKinematic = true;
+                    int i = GetComponent<BoxCollider2D>().GetContacts(m_colliders);
+                    if (i <= 1)
+                    {
+                    }
                     m_pushableRb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
+                    m_pushableRb.isKinematic = true;
+                    //m_pushableRb.constraints = RigidbodyConstraints2D.FreezeAll;
                     Debug.Log("Exit constraints: " + m_pushableRb.constraints);
                     m_pushableRb.velocity = Vector2.zero;
-
                     break;
             }
         }
@@ -79,7 +92,7 @@ namespace Naren_Dev
 
         #region Custom Methods
 
-        private void _CheckDependencies()
+        private void _Init()
         {
             if (m_pushableRb == null) TryGetComponent(out m_pushableRb);
             if (m_pushBoxCollider == null) TryGetComponent(out m_pushBoxCollider);

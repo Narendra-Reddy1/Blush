@@ -81,7 +81,7 @@ namespace Naren_Dev
         }
         private void Update()
         {
-          ReadJumpInput();
+            ReadJumpInput();
         }
 
         private void ReadJumpInput()
@@ -89,13 +89,13 @@ namespace Naren_Dev
 
             pA_canJump = m_inputActions.Player_A.Jump.triggered;
             pB_canJump = m_inputActions.Player_B.Jump.triggered;
-            return;
-            pA_canJump = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S);
-            pB_canJump = Input.GetKeyDown(KeyCode.C);
-            if (pB_canJump)
-            {
-                Debug.Log($"PlayerB Can Jump: {pB_canJump}");
-            }
+            //  return;
+            //pA_canJump = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S);
+            //pB_canJump = Input.GetKeyDown(KeyCode.C);
+            //if (pB_canJump)
+            //{
+            //    Debug.Log($"PlayerB Can Jump: {pB_canJump}");
+            //}
             //Debug.Log("B Jump" + pB_canJump);
         }
 

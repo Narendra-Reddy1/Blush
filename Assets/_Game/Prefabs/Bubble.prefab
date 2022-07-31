@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7347398923057357237}
   m_Layer: 0
   m_Name: Bubble
-  m_TagString: Untagged
+  m_TagString: Bubble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,4 +112,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573e4eee08e192e4ea8f6774377dec0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gravityValue: 9.81
+  m_bubbleRespawnTime: 1.75

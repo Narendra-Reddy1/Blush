@@ -11,6 +11,7 @@ TagManager:
   - Merchant
   - PushableBox
   - Collectable
+  - Bubble
   layers:
   - Default
   - TransparentFX
@@ -68,4 +69,7 @@ TagManager:
     locked: 0
   - name: Collectable
     uniqueID: 418863219
+    locked: 0
+  - name: Pushable
+    uniqueID: 3487227227
     locked: 0

@@ -10,7 +10,7 @@ namespace Naren_Dev
 
         //   private Vector3 m_offSet = new Vector3(0f, 0f,-10);
         private Bounds bounds;
-        private Camera m_camera;
+        [SerializeField] private Camera m_camera;
         private Vector3 m_middlePos;
         private Vector3 m_currDampVelocity;
         private float vel = 0f;
@@ -20,7 +20,8 @@ namespace Naren_Dev
         [SerializeField] private float m_minCamSize = 8, m_maxCamSize = 15;
         private void Awake()
         {
-            m_camera = Camera.main;
+            //  if (m_camera = null) TryGetComponent(out m_camera);
+            if(m_camera==null)m_camera = Camera.main;
         }
         private void LateUpdate()
         {
@@ -42,7 +43,7 @@ namespace Naren_Dev
             {
                 m_camera.orthographicSize = Mathf.SmoothDamp(m_camera.orthographicSize, m_maxCamSize, ref vel, m_transitionVelocity);
             }
-          //  Debug.Log(Vector2.Distance(target1, target2));
+            //  Debug.Log(Vector2.Distance(target1, target2));
 
         }
 

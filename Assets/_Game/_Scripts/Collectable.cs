@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using Fungus;
 
 namespace Naren_Dev
 {
@@ -41,20 +40,20 @@ namespace Naren_Dev
 
         public void PlayTweening()
         {
-            m_transform.DOMove(targetTrans.position, m_tweeningSpeed*2.5f).OnComplete(() => { _OnTweenComplete(); });
+            m_transform.DOMove(targetTrans.position, m_tweeningSpeed * 2.5f).OnComplete(() => { _OnTweenComplete(); });
             //m_transform.position = Vector3.Lerp(m_transform.position, targetTrans.position, m_tweeningSpeed * Time.deltaTime);
         }
         public void ShowCollectableEffect(Transform target)
         {
-          //  m_transform.DOPunchScale(m_punchScale, m_tweeningSpeed);
+            //  m_transform.DOPunchScale(m_punchScale, m_tweeningSpeed);
 
             targetTrans = target;
             m_tween = true;
 
-           // StartCoroutine(FollowPlayer(target));
-           // Debug.Log("Before Move is called");
-           // Move m = new Move(gameObject, target, flowchart);
-          //  m.Play();
+            // StartCoroutine(FollowPlayer(target));
+            // Debug.Log("Before Move is called");
+            // Move m = new Move(gameObject, target, flowchart);
+            //  m.Play();
             //flowchart.AddSelectedCommand(MoveTo.)
             //m_transform.DOMove(target.position,5f);
             //m_transform.position= Vector3.Lerp(m_transform.position, target.position, m_tweeningSpeed * Time.deltaTime);
@@ -63,8 +62,8 @@ namespace Naren_Dev
         private void _OnTweenComplete()
         {
             //m_tween = false;
-            m_transform.DOScale(Vector3.zero, m_tweeningSpeed).OnComplete(()=> { gameObject.SetActive(false); });
-            
+            m_transform.DOScale(Vector3.zero, m_tweeningSpeed).OnComplete(() => { gameObject.SetActive(false); });
+
         }
         #region Coroutines
         /*private IEnumerator FollowPlayer(Transform target)

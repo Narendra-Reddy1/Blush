@@ -6,23 +6,23 @@ namespace Naren_Dev
     public class GameManager : MonoBehaviour
     {
         public static GameManager instance { get; private set; }
-
-       //[SerializeField]private 
+        public GameState gameState;
+        //[SerializeField]private 
         public GameObject enemyDeathEffect;
         public GameObject wheelSelectionHighlight;
         [SerializeField] private Camera m_camera;
-       // [SerializeField] private Material m_bgMaterial;
+        // [SerializeField] private Material m_bgMaterial;
         [SerializeField] private List<Material> m_gradientMaterials;
-     
 
-        
+
+
         public float MinScreenBound => minScreenBounds.x;
         public float MaxScreenBound => maxScreenBounds.x;
 
         private Vector3 minScreenBounds;
         private Vector3 maxScreenBounds;
         private float m_intensity = 0.1f;
-       // [SerializeField]private float m_intensitySpeed = 2f;
+        // [SerializeField]private float m_intensitySpeed = 2f;
 
         private void Awake()
         {
@@ -43,11 +43,11 @@ namespace Naren_Dev
         private void CheckDependencies()
         {
             if (m_camera == null) m_camera = Camera.main;
-           /* if (enemyDeathEffect == null) { Resources.Load("Assets/_Game/Prefabs/Effects/Death Effect.prefab"); }
-            if (wheelSelectionHighlight == null)
-                Resources.Load("Assets/_Game/Prefabs/Wheel Sec_Highlight.prefab");*/
-            
-          
+            /* if (enemyDeathEffect == null) { Resources.Load("Assets/_Game/Prefabs/Effects/Death Effect.prefab"); }
+             if (wheelSelectionHighlight == null)
+                 Resources.Load("Assets/_Game/Prefabs/Wheel Sec_Highlight.prefab");*/
+
+
             foreach (Material mat in m_gradientMaterials)
             {
                 mat.SetColor("_Color1", Color.HSVToRGB(0, 0, 12f));
@@ -63,7 +63,7 @@ namespace Naren_Dev
             minScreenBounds = m_camera.ScreenToWorldPoint(new Vector3(0, Screen.height, m_camera.transform.position.z));
             maxScreenBounds = m_camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, m_camera.transform.position.z));
         }
-        
+
 
         private void ApplyColorsToLevel()
         {
@@ -74,25 +74,32 @@ namespace Naren_Dev
             }
 
 
-/*
-            foreach (Material mat in m_gradientMaterials)
-            {
-            }*/
+            /*
+                        foreach (Material mat in m_gradientMaterials)
+                        {
+                        }*/
 
-           /* if (m_intensity <= 1.25f)
-            {
-                m_intensity = Mathf.MoveTowards(m_intensity, 1.25f, m_intensitySpeed * Time.deltaTime);
-            }*/
+            /* if (m_intensity <= 1.25f)
+             {
+                 m_intensity = Mathf.MoveTowards(m_intensity, 1.25f, m_intensitySpeed * Time.deltaTime);
+             }*/
 
-          /*  foreach (Material mat in m_gradientMaterials)
-            {
-                mat.SetFloat("_Intensity", m_intensity);
-            }*/
+            /*  foreach (Material mat in m_gradientMaterials)
+              {
+                  mat.SetFloat("_Intensity", m_intensity);
+              }*/
         }
-        
-       private void SetOriginalColors()
+
+        private void SetOriginalColors()
         {
-         
+
         }
+    }
+    public enum GameState
+    {
+        MainMenu = 0,
+        Started = 1,
+        Completed = 2,
+        CutScene = 3
     }
 }
