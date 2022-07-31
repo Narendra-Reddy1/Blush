@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 namespace Naren_Dev
 {
@@ -30,10 +29,12 @@ namespace Naren_Dev
 
         private void OnDrawGizmos()
         {
-            Handles.color = m_lineColor;
+#if UNITY_EDITOR
+            UnityEditor.Handles.color = m_lineColor;
             //Handles.DrawPolyLine(m_wayPointA.position, transform.position);
-            Handles.DrawLine(m_wayPointA.position, transform.position, m_linesSize);
-            Handles.DrawLine(m_wayPointB.position, transform.position, m_linesSize);
+            UnityEditor.Handles.DrawLine(m_wayPointA.position, transform.position, m_linesSize);
+            UnityEditor.Handles.DrawLine(m_wayPointB.position, transform.position, m_linesSize);
+#endif
         }
         #endregion
 
@@ -60,12 +61,12 @@ namespace Naren_Dev
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.collider == null) return;
-                        other.transform.parent = transform;
+            other.transform.parent = transform;
         }
         private void OnCollisionExit2D(Collision2D other)
         {
             if (other.collider == null) return;
-             other.transform.parent = null; ;
+            other.transform.parent = null; ;
         }
 
         #endregion

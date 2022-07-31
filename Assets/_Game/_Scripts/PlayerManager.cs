@@ -104,9 +104,5 @@ namespace Naren_Dev
 
             Gizmos.DrawWireCube(m_playerCheck.position, m_boxSize);
         }
-
-        
-
-
     }
 }

@@ -973,6 +973,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1297966285}
     m_Modifications:
+    - target: {fileID: 6064786053974860028, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064786053974860031, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
+      propertyPath: m_Size.x
+      value: 12.568469
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064786053974860031, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
+      propertyPath: m_Size.y
+      value: 4.384402
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064786053974860031, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064786053974860031, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.12418309
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064786053974860031, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
+      propertyPath: m_Offset.y
+      value: -6.5566773
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064786053974860031, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
+      propertyPath: m_Direction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6064786055077110795, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
       propertyPath: m_Name
       value: Player_B
