@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using System;
 
 namespace Naren_Dev
@@ -41,27 +42,60 @@ namespace Naren_Dev
             m_inputActions.Player_A.ColorWheel.performed += _ => ReadInput();
             m_inputActions.Player_A.ColorWheel.canceled += _ => ReadInput();
 
-            /* m_inputActions.Player_A.Jump.started += _ => ReadInput();
-             m_inputActions.Player_A.Jump.canceled += _ => ReadInput();*/
+            m_inputActions.Player_A.Jump.started += _ => ReadInput();
+            m_inputActions.Player_A.Jump.canceled += _ => ReadInput();
 
             m_inputActions.Player_B.Movement.performed += _ => ReadInput();
             m_inputActions.Player_B.Movement.canceled += _ => ReadInput();
 
             m_inputActions.Player_B.ColorWheel.performed += _ => ReadInput();
             m_inputActions.Player_B.ColorWheel.canceled += _ => ReadInput();
-            /*
-                        m_inputActions.Player_B.Jump.started += _ => ReadInput();
-                        m_inputActions.Player_B.Jump.canceled += _ => ReadInput();*/
+
+            m_inputActions.Player_B.Jump.started += _ => ReadInput();
+            m_inputActions.Player_B.Jump.canceled += _ => ReadInput();
+        }
+        private void OnDisable()
+        {
+            m_inputActions.Player_A.Movement.performed -= _ => ReadInput();
+            m_inputActions.Player_A.Movement.canceled -= _ => ReadInput();
+
+            m_inputActions.Player_A.ColorWheel.performed -= _ => ReadInput();
+            m_inputActions.Player_A.ColorWheel.canceled -= _ => ReadInput();
+
+            m_inputActions.Player_A.Jump.started -= _ => ReadInput();
+            m_inputActions.Player_A.Jump.canceled -= _ => ReadInput();
+
+            m_inputActions.Player_B.Movement.performed -= _ => ReadInput();
+            m_inputActions.Player_B.Movement.canceled -= _ => ReadInput();
+
+            m_inputActions.Player_B.ColorWheel.performed -= _ => ReadInput();
+            m_inputActions.Player_B.ColorWheel.canceled -= _ => ReadInput();
+
+
+            m_inputActions.Player_B.Jump.started -= _ => ReadInput();
+            m_inputActions.Player_B.Jump.canceled -= _ => ReadInput();
+
+
+            m_inputActions.Disable();
+            instance = null;
         }
         private void Update()
         {
-            ReadJumpInput();
+          ReadJumpInput();
         }
 
         private void ReadJumpInput()
         {
+
+            pA_canJump = m_inputActions.Player_A.Jump.triggered;
+            pB_canJump = m_inputActions.Player_B.Jump.triggered;
+            return;
             pA_canJump = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S);
-            pB_canJump = Input.GetKeyDown(KeyCode.JoystickButton0);
+            pB_canJump = Input.GetKeyDown(KeyCode.C);
+            if (pB_canJump)
+            {
+                Debug.Log($"PlayerB Can Jump: {pB_canJump}");
+            }
             //Debug.Log("B Jump" + pB_canJump);
         }
 
@@ -75,34 +109,13 @@ namespace Naren_Dev
             playerAWheelIndex = m_inputActions.Player_A.ColorWheel.ReadValue<Vector2>();
             playerBWheelIndex = m_inputActions.Player_B.ColorWheel.ReadValue<Vector2>();
 
-           
+            //Jump
+            //pA_canJump = m_inputActions.Player_A.Jump.triggered;
+            //pB_canJump = m_inputActions.Player_B.Jump.triggered;
+
         }
 
-        private void OnDisable()
-        {
-            m_inputActions.Player_A.Movement.performed -= _ => ReadInput();
-            m_inputActions.Player_A.Movement.canceled -= _ => ReadInput();
 
-            m_inputActions.Player_A.ColorWheel.performed -= _ => ReadInput();
-            m_inputActions.Player_A.ColorWheel.canceled -= _ => ReadInput();
-
-            /*m_inputActions.Player_A.Jump.started -= _ => ReadInput();
-            m_inputActions.Player_A.Jump.canceled -= _ => ReadInput();*/
-
-            m_inputActions.Player_B.Movement.performed -= _ => ReadInput();
-            m_inputActions.Player_B.Movement.canceled -= _ => ReadInput();
-
-            m_inputActions.Player_B.ColorWheel.performed -= _ => ReadInput();
-            m_inputActions.Player_B.ColorWheel.canceled -= _ => ReadInput();
-
-
-            /* m_inputActions.Player_B.Jump.started -= _ => ReadInput();
-             m_inputActions.Player_B.Jump.canceled -= _ => ReadInput();*/
-
-
-            m_inputActions.Disable();
-            instance = null;
-        }
 
     }
 }
