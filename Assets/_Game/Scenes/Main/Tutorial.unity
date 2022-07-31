@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 8
+    OrthographicSize: 15.85
     NearClipPlane: 0.1
     FarClipPlane: 100
     Dutch: 0
@@ -3312,6 +3312,18 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 8.87
       objectReference: {fileID: 0}
+    - target: {fileID: 6953870081408916988, guid: 4188b3abeb02e3b48a87ba3817612655, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 6953870081408916988, guid: 4188b3abeb02e3b48a87ba3817612655, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 6953870081408916988, guid: 4188b3abeb02e3b48a87ba3817612655, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.31764707
+      objectReference: {fileID: 0}
     - target: {fileID: 6953870081408916989, guid: 4188b3abeb02e3b48a87ba3817612655, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 1
@@ -4009,7 +4021,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6340465420444033217, guid: a3d5492ad8774a544b835796208df79a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6340465420444033217, guid: a3d5492ad8774a544b835796208df79a, type: 3}
       propertyPath: m_LocalPosition.x
