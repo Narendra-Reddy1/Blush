@@ -15,19 +15,19 @@ namespace Naren_Dev
 
         #region UnityEvents
 
-        public UnityEvent <Collectable,Transform> onCollectableCollected = null;
-        
+        public UnityEvent<Collectable, Transform> onCollectableCollected = null;
+
         #endregion
 
         #region Variables
 
-        [SerializeField] private int m_collectablesCollected=0;
-        [SerializeField] private int m_effectSize=4;
+        [SerializeField] private int m_collectablesCollected = 0;
+        [SerializeField] private int m_effectSize = 4;
         [SerializeField] private GameObject m_collectableParticlePrefab;
         private List<GameObject> m_collectableParticleList;
 
         #endregion
-        
+
         #region Unity Built-In Methods
 
         private void OnEnable()
@@ -47,16 +47,16 @@ namespace Naren_Dev
         }
         private void Start()
         {
-           /*ObjectPooler.SpawnObjects(m_collectableParticlePrefab,)*/
+            /*ObjectPooler.SpawnObjects(m_collectableParticlePrefab,)*/
         }
 
         #endregion
 
         #region Custom Methods
 
-      
 
-        public void OnCollectableCollected(Collectable collectable,Transform target)
+
+        public void OnCollectableCollected(Collectable collectable, Transform target)
         {
             if (collectable.IsGem)
             {/*
@@ -65,7 +65,8 @@ namespace Naren_Dev
 #else
                 Destroy(collectable.gameObject);
 #endif*/
-              collectable.ShowCollectableEffect(target);
+                AudioManager.instance?.PlaySFX(AudioId.CollectableSFX, 0.5f);
+                collectable.ShowCollectableEffect(target);
 
                 m_collectablesCollected++;
             }

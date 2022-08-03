@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729bfa43c1f5a1448b666263672d567e, type: 3}
+  m_Name: AudioFilesAsset
+  m_EditorClassIdentifier: 
+  description: Add AudioFiles here.Take reference to this asset to acces audiofiles
+  audioClips:
+  - {fileID: 8300000, guid: 9cf5d082de9deb5439e2df21c533a615, type: 3}
+  - {fileID: 8300000, guid: 846d679838811db4e8a693f21af09173, type: 3}
+  - {fileID: 8300000, guid: 3608de7ce1eb7eb4686775c68bcc4c52, type: 3}
+  - {fileID: 8300000, guid: bd87665a2b4e96e49ae6be40bd7da2c6, type: 3}
+  - {fileID: 8300000, guid: 2a90f7886612a9046a23f1f0b440bcfb, type: 3}
+  - {fileID: 8300000, guid: 27e136d58b106cf4fa16dcefa53ea48d, type: 3}

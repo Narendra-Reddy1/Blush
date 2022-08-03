@@ -52,7 +52,10 @@ namespace Naren_Dev
                         isGravitySwitched = true;
 
                     }
-                    break;
+                    break;/*
+                case "NeutralPortal":
+                    AudioManager.instance.PlaySFX(AudioId.)
+                    break;*/
             }
 
 /*

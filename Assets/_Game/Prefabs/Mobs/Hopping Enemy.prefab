@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5720050974703252517}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SoftSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3738237722302943611}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hopping Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3738237722800454170}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bottom_point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3738237723658744633}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: top_point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 3738237723809812424}
   - component: {fileID: 3738237723809812438}
   - component: {fileID: 3738237723809812425}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: jumping mob
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 3738237723819663353}
   - component: {fileID: 3738237723819663352}
   - component: {fileID: 3738237723819663303}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Soft Spot
   m_TagString: EnemySoftSpot
   m_Icon: {fileID: 0}

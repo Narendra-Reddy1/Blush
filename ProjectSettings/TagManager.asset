@@ -12,6 +12,7 @@ TagManager:
   - PushableBox
   - Collectable
   - Bubble
+  - NeutralPortal
   layers:
   - Default
   - TransparentFX

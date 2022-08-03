@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace Naren_Dev
 {
@@ -21,6 +22,12 @@ namespace Naren_Dev
 
         private void Awake()
         {
+            if (instance != null && instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+                instance = this;
             /*playerA_ColorSection = new List<RectTransform>();
             playerB_ColorSection = new List<RectTransform>();*/
         }
@@ -38,6 +45,25 @@ namespace Naren_Dev
             // Debug.Log(InputManager.instance.playerAWheelIndex);
         }
 
+        public void UnlockColor(int colorId, bool playerA)
+        {
+            if (playerA)
+            {
+                if (colorId > playerA_ColorSection.Count || colorId < 0)
+                    return;
+                playerA_ColorSection[colorId].transform.DOShakePosition(1.5f, 5f);
+                playerA_ColorSection[colorId].transform.DOShakeRotation(1.5f, 5f);
+                playerA_ColorSection[colorId].GetComponent<Image>().DOFillAmount(1, 1.5f);
+            }
+            else
+            {
+                if (colorId > playerB_ColorSection.Count || colorId < 0)
+                    return;
+                playerB_ColorSection[colorId].transform.DOShakePosition(1.5f, 5f);
+                playerB_ColorSection[colorId].transform.DOShakeRotation(1.5f, 5f);
+                playerB_ColorSection[colorId].GetComponent<Image>().DOFillAmount(1, 1.5f);
+            }
+        }
 
         private void ColorSelectionIndicator(Vector2 playerWheelIndex, List<RectTransform> playerColorSection)
         {

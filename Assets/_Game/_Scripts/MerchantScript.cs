@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Naren_Dev {
+namespace Naren_Dev
+{
     public class MerchantScript : MonoBehaviour
     {
-       [SerializeField] private Animator m_merchantAnim;
+        [SerializeField] private Animator m_merchantAnim;
 
         private void Awake()
         {
@@ -17,10 +18,23 @@ namespace Naren_Dev {
         {
             if (collision.CompareTag("Player"))
             {
-                InputManager.instance.hasControlAcces = false;
-                m_merchantAnim.SetTrigger("canAppear");
-            }
+                AudioManager.instance.PlaySFX(AudioId.MerchantTransitionSFX);
+                GetComponent<Collider2D>().enabled = false;
+                UIManager.instance.UnlockColor(1, true);
+                UIManager.instance.UnlockColor(2, true);
+                UIManager.instance.UnlockColor(1, false);
+                UIManager.instance.UnlockColor(2, false);
 
+                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Tutorial_1", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                // InputManager.instance.hasControlAcces = false;
+                m_merchantAnim.SetTrigger("canAppear");
+                Invoke(nameof(_Disappear), 1.5f);
+            }
+        }
+        private void _Disappear()
+        {
+            m_merchantAnim.SetTrigger("Disappear");
+            Invoke(nameof(_Disappear), 2f);
         }
     }
 }

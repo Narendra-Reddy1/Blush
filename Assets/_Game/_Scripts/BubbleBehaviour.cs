@@ -38,6 +38,7 @@ namespace Naren_Dev
 
             if (!collision.CompareTag("Player"))
                 return;
+            AudioManager.instance?.PlaySFX(AudioId.BubblePopSFX);
             collision.attachedRigidbody.gravityScale *= -1;
             m_sRenderer.enabled = false;
             m_collider2D.enabled = false;

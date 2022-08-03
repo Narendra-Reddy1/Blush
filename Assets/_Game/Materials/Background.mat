@@ -20,12 +20,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - _DirX: 110
-    - _DirY: 71
+    - _DirX: 59.4
+    - _DirY: 49.8
     - _Exponent: 12.77
     - _Intensity: 0.001
     m_Colors:
     - _Color1: {r: 12, g: 12, b: 12, a: 1}
     - _Color2: {r: 71, g: 71, b: 71, a: 1}
-    - _UpVector: {r: 0.8884968, g: 0.32556814, b: -0.32338637, a: 0}
+    - _UpVector: {r: 0.65743136, g: 0.6454577, b: 0.38880378, a: 0}
   m_BuildTextureStacks: []

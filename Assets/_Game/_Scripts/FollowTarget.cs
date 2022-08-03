@@ -30,7 +30,6 @@ namespace Naren_Dev
             TrackTheTarget();
             AdjustCameraView();
         }
-
         private void AdjustCameraView()
         {
             Vector2 target1 = m_targets[0].position;

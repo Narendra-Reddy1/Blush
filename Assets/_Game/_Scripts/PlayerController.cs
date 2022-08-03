@@ -21,7 +21,7 @@ namespace Naren_Dev
         [SerializeField] private Vector2 m_eyesOffset;
         [SerializeField] private Animator m_playerAnim;
         [SerializeField] private Animator m_eyesAnim;
-       // [SerializeField] private SpriteRenderer m_spriteRenderer;
+        // [SerializeField] private SpriteRenderer m_spriteRenderer;
         [SerializeField] private SpriteRenderer m_eyesRenderer;
         [SerializeField] private GameObject m_eyes;
         [SerializeField] private PlayerManager m_playerManager;
@@ -72,7 +72,7 @@ namespace Naren_Dev
 
         private void Update()
         {
-            
+
             if (InputManager.instance.hasControlAcces)
             {
                 GetInput();
@@ -181,6 +181,7 @@ namespace Naren_Dev
             if (canJump && m_playerManager.isGrounded)
             {
                 m_playerRb.velocity = Vector2.zero;
+                AudioManager.instance?.PlaySFX(AudioId.JumpSFX);
                 m_playerRb.velocity = new Vector2(m_playerRb.velocity.x, m_gravitySwitcher.isGravitySwitched ?
                     -m_jumpForce : m_jumpForce *
                     (m_playerManager.isPlayerOnHead ? 5 : 1));
@@ -229,7 +230,7 @@ namespace Naren_Dev
 
         private void SetAnimationIds()
         {
-            
+
             m_playerAnim.SetFloat("walking", m_inputAxis.x);
             m_eyesAnim.SetFloat("walking", m_inputAxis.x);
         }

@@ -29,6 +29,11 @@ namespace Naren_Dev
             instance = this;
             CheckDependencies();
             SetScreenBounds();
+          
+        }
+        private void Start()
+        {
+            AudioManager.instance?.PlayMusic(AudioId.GamePlayBGM);
         }
 
         private void Update()
@@ -38,7 +43,7 @@ namespace Naren_Dev
                 ApplyColorsToLevel();
 
         }
-
+      
 
         private void CheckDependencies()
         {
