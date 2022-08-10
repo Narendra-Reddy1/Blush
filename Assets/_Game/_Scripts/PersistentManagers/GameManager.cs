@@ -11,6 +11,7 @@ namespace Naren_Dev
         public GameObject enemyDeathEffect;
         public GameObject wheelSelectionHighlight;
         [SerializeField] private Camera m_camera;
+        [SerializeField] private AudioCueEventChannelSO m_audioEventChannel;
         // [SerializeField] private Material m_bgMaterial;
         [SerializeField] private List<Material> m_gradientMaterials;
 
@@ -29,11 +30,11 @@ namespace Naren_Dev
             instance = this;
             CheckDependencies();
             SetScreenBounds();
-          
+
         }
         private void Start()
         {
-            AudioManager.instance?.PlayMusic(AudioId.GamePlayBGM);
+            m_audioEventChannel.RaiseMusicPlayEvent(AudioId.GamePlayBGM);
         }
 
         private void Update()
@@ -43,7 +44,7 @@ namespace Naren_Dev
                 ApplyColorsToLevel();
 
         }
-      
+
 
         private void CheckDependencies()
         {
@@ -99,12 +100,5 @@ namespace Naren_Dev
         {
 
         }
-    }
-    public enum GameState
-    {
-        MainMenu = 0,
-        Started = 1,
-        Completed = 2,
-        CutScene = 3
     }
 }

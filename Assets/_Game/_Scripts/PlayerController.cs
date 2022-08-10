@@ -35,7 +35,7 @@ namespace Naren_Dev
         [SerializeField] private Color m_portalColor_1;
         [SerializeField] private Color m_portalColor_2;
         [SerializeField] private Color m_portalColor_3;
-
+        [SerializeField] private AudioCueEventChannelSO m_audioEventChannel;
         private Vector2 m_inputAxis;
         private bool canJump;
 
@@ -148,7 +148,6 @@ namespace Naren_Dev
 
         private void GetInput()
         {
-
             m_inputAxis = isPlayerA ? InputManager.instance.playerAMoveAxis : InputManager.instance.playerBMoveAxis;
             m_wheelIndexInput = isPlayerA ? InputManager.instance.playerAWheelIndex : InputManager.instance.playerBWheelIndex;
             canJump = isPlayerA ? InputManager.instance.pA_canJump : InputManager.instance.pB_canJump;
@@ -181,7 +180,8 @@ namespace Naren_Dev
             if (canJump && m_playerManager.isGrounded)
             {
                 m_playerRb.velocity = Vector2.zero;
-                AudioManager.instance?.PlaySFX(AudioId.JumpSFX);
+                m_audioEventChannel.RaiseSFXPlayEvent(AudioId.JumpSFX);
+                // AudioManager.instance?.PlaySFX(AudioId.JumpSFX);
                 m_playerRb.velocity = new Vector2(m_playerRb.velocity.x, m_gravitySwitcher.isGravitySwitched ?
                     -m_jumpForce : m_jumpForce *
                     (m_playerManager.isPlayerOnHead ? 5 : 1));

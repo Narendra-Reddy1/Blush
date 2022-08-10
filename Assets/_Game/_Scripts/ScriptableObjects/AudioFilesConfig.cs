@@ -1,30 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.Audio;
 
 namespace Naren_Dev
 {
     [CreateAssetMenu(fileName = "newAudioFilesAsset", menuName = "ScriptablesObjects/Audio/AudioFilesAsset")]
     public class AudioFilesConfig : BaseScriptableObject
     {
-        //public bool Contains(AudioId audioId)
-        //{
-        //    bool isContain = false;
-        //    foreach (AudioDictionary item in audioDictionay)
-        //    {
-        //        if (item.audioID == audioId && item.audioClip != null)
-        //            isContain = true;
-        //    }
+        [Header("==================SFX Audio Clips==================")]
+        public AudioDictionary sfxAudioDictionary;
+        [Space(5)]
+        [Header("==================BGM Audio Clips==================")]
+        public AudioDictionary bgmAudioDictionary;
 
+        [Space(10)]
+        public AudioMixerGroup sfxMixerGroup;
+        public AudioMixerGroup bgmMixerGroup;
+        public AudioMixerGroup masterMixerGroup;
 
-        //    return isContain;
-        //}
-        //public List<AudioDictionary> audioDictionay;
         public List<AudioClip> audioClips;
-        public AudioClip GetAudioClip(int index)
+        public AudioClip GetSFXAudioClip(AudioId audioId)
         {
-            if (index > audioClips.Count) return null;
-            return audioClips[index];
+            sfxAudioDictionary.TryGetValue(audioId, out AudioClip audio);
+            return audio;
+        }
+        public AudioClip GetBgmAudioClip(AudioId audioId)
+        {
+            bgmAudioDictionary.TryGetValue(audioId, out AudioClip audio);
+            return audio;
         }
     }
+
+    [System.Serializable]
+    public class AudioClipReference : AssetReferenceT<AudioClip>
+    {
+        public AudioClipReference(string guid) : base(guid)
+        {
+
+        }
+    }
+
 }

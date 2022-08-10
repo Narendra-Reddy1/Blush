@@ -6,6 +6,7 @@ namespace Naren_Dev
 {
     public class MerchantScript : MonoBehaviour
     {
+        [SerializeField] private AudioCueEventChannelSO m_audioEventChannel;
         [SerializeField] private Animator m_merchantAnim;
 
         private void Awake()
@@ -18,7 +19,8 @@ namespace Naren_Dev
         {
             if (collision.CompareTag("Player"))
             {
-                AudioManager.instance.PlaySFX(AudioId.MerchantTransitionSFX);
+                m_audioEventChannel.RaiseSFXPlayEvent(AudioId.MerchantTransitionSFX);
+                //  AudioManager.instance.PlaySFX(AudioId.MerchantTransitionSFX);
                 GetComponent<Collider2D>().enabled = false;
                 UIManager.instance.UnlockColor(1, true);
                 UIManager.instance.UnlockColor(2, true);

@@ -191,7 +191,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 807720663
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: c25fdb2c61130544b8ad63f9b55e04fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -331,7 +331,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 807720663
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: d430603813948044f9aca117d83fa3d1, type: 3}
   m_Color: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
@@ -415,13 +415,17 @@ MonoBehaviour:
   m_eyesOffset: {x: 0, y: 0}
   m_playerAnim: {fileID: 8991928382170519799}
   m_eyesAnim: {fileID: 8991928381450394105}
-  m_spriteRenderer: {fileID: 8991928382170519784}
+  m_eyesRenderer: {fileID: 0}
   m_eyes: {fileID: 8991928381450394108}
   m_playerManager: {fileID: 8991928382170519796}
   m_playerRb: {fileID: 8991928382170519798}
-  m_Force: 8
+  m_moveSpeed: 25
   m_jumpForce: 35
   m_maxVelocity: 35
+  m_portalColor_1: {r: 0, g: 0, b: 0, a: 0}
+  m_portalColor_2: {r: 0, g: 0, b: 0, a: 0}
+  m_portalColor_3: {r: 0, g: 0, b: 0, a: 0}
+  m_audioEventChannel: {fileID: 11400000, guid: 5c4d2aa93abf56f42b721d5d3b7b2438, type: 2}
 --- !u!114 &8991928382170519796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,6 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 8991928382170519784}
+  m_playerParent: {fileID: 0}
   m_playerCheck: {fileID: 8991928381515144876}
   m_groundCheck: {fileID: 8991928381204666008}
   layerMask:

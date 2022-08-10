@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 namespace Naren_Dev
 {
     public class PlayerCollisionsManager : MonoBehaviour
@@ -14,7 +13,10 @@ namespace Naren_Dev
             switch (other.tag)
             {
                 case "Collectable":
-                    CollectableManager.instance?.onCollectableCollected?.Invoke(other.GetComponent<Collectable>(),this.transform);
+                    CollectableManager.instance?.onCollectableCollected?.Invoke(other.GetComponent<Collectable>(), this.transform);
+                    break;
+                case "JumpPad":
+
                     break;
             }
         }

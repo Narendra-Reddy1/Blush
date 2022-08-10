@@ -281,6 +281,7 @@ MonoBehaviour:
   m_portalColor_1: {r: 1, g: 0.3339622, b: 0.7691157, a: 1}
   m_portalColor_2: {r: 0.2470588, g: 0.65213925, b: 0.9529412, a: 1}
   m_portalColor_3: {r: 0.9056604, g: 0.3014453, b: 0.20847276, a: 1}
+  m_audioEventChannel: {fileID: 11400000, guid: 5c4d2aa93abf56f42b721d5d3b7b2438, type: 2}
 --- !u!114 &660572659566850183
 MonoBehaviour:
   m_ObjectHideFlags: 0

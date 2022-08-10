@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_audioFilesAsset: {fileID: 11400000, guid: 422710634af454a42a050c324ae338c0, type: 2}
+  m_audioEventChannel: {fileID: 11400000, guid: 5c4d2aa93abf56f42b721d5d3b7b2438, type: 2}
   sfxSource: {fileID: 8644608665793155792}
   bgmSource: {fileID: 6955112178946538519}
 --- !u!1 &6517598883453982510

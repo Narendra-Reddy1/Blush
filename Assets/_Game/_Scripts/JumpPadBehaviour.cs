@@ -8,6 +8,7 @@ namespace Naren_Dev
     public class JumpPadBehaviour : MonoBehaviour
     {
         #region Variables
+        [SerializeField] private AudioCueEventChannelSO m_audioEventChannel;
         [SerializeField] private List<Collider2D> m_colliders;
         //private Collider2D[] m_colliders = new Collider2D[2];
         [SerializeField] private BoxCollider2D m_jumpPadCollider;
@@ -39,7 +40,8 @@ namespace Naren_Dev
             {
                 case "Player":
                     //m_colliders.Clear();
-                    AudioManager.instance?.PlaySFX(AudioId.JumpPadSFX);
+                    m_audioEventChannel.RaiseSFXPlayEvent(AudioId.JumpPadSFX);
+                    //AudioManager.instance?.PlaySFX(AudioId.JumpPadSFX);
                     int i = m_jumpPadCollider.GetContacts(m_colliders);
                     if (i <= 1)
                         return;

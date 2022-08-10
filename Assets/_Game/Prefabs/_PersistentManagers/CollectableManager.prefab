@@ -46,6 +46,7 @@ MonoBehaviour:
   onCollectableCollected:
     m_PersistentCalls:
       m_Calls: []
+  m_audioEventChannel: {fileID: 11400000, guid: 5c4d2aa93abf56f42b721d5d3b7b2438, type: 2}
   m_collectablesCollected: 0
   m_effectSize: 4
   m_collectableParticlePrefab: {fileID: 0}

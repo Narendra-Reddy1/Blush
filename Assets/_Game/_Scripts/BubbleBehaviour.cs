@@ -12,6 +12,7 @@ namespace Naren_Dev
 
         [Range(0.75f, 4f)]
         [SerializeField] private float m_bubbleRespawnTime = 1.75f;
+        [SerializeField] private AudioCueEventChannelSO m_audioEventChannel;
         //  [SerializeField] private float m_gravityValue = 9.81f;
         private SpriteRenderer m_sRenderer;
         private CircleCollider2D m_collider2D;
@@ -38,7 +39,8 @@ namespace Naren_Dev
 
             if (!collision.CompareTag("Player"))
                 return;
-            AudioManager.instance?.PlaySFX(AudioId.BubblePopSFX);
+            // AudioManager.instance?.PlaySFX(AudioId.BubblePopSFX);
+            m_audioEventChannel.RaiseSFXPlayEvent(AudioId.BubblePopSFX);
             collision.attachedRigidbody.gravityScale *= -1;
             m_sRenderer.enabled = false;
             m_collider2D.enabled = false;

@@ -121,7 +121,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9.46, y: 15.67}
+    oldSize: {x: 9.487696, y: 15.670001}
     newSize: {x: 9.46, y: 15.67}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -142,4 +142,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbe83cb4b67beaf459251b86b7f40526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_audioEventChannel: {fileID: 11400000, guid: 5c4d2aa93abf56f42b721d5d3b7b2438, type: 2}
   m_merchantAnim: {fileID: 8042916447311407693}

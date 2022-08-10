@@ -122,3 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa6c6175eb8dbe43ad50bfd585b8acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_audioEventChannel: {fileID: 11400000, guid: 5c4d2aa93abf56f42b721d5d3b7b2438, type: 2}
+  m_colliders: []
+  m_jumpPadCollider: {fileID: 0}
