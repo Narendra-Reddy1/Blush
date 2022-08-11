@@ -578,6 +578,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1897824302438631927, guid: 8f0fc68ff5b193946816d692009ede49, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6955112178946538519, guid: 8f0fc68ff5b193946816d692009ede49, type: 3}
       propertyPath: MaxDistance
       value: 1125.1604
