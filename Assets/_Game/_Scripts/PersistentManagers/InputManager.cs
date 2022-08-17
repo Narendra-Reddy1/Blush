@@ -36,6 +36,7 @@ namespace Naren_Dev
         private void OnEnable()
         {
             m_inputActions.Enable();
+
             m_inputActions.Player_A.Movement.performed += _ => ReadInput();
             m_inputActions.Player_A.Movement.canceled += _ => ReadInput();
 
@@ -74,7 +75,6 @@ namespace Naren_Dev
 
             m_inputActions.Player_B.Jump.started -= _ => ReadInput();
             m_inputActions.Player_B.Jump.canceled -= _ => ReadInput();
-
 
             m_inputActions.Disable();
             instance = null;
