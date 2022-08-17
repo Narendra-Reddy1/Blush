@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Naren_Dev
 {
-    public class AudioManager : MonoBehaviour
+    public class AudioManager : MonoBehaviour, IInitializer
     {
         #region Variables
 
@@ -49,7 +49,7 @@ namespace Naren_Dev
 
         #region Custom Methods
 
-        private void _Init()
+        public void Init()
         {
             bgmSource.outputAudioMixerGroup = m_audioFilesAsset.bgmMixerGroup;
             sfxSource.outputAudioMixerGroup = m_audioFilesAsset.sfxMixerGroup;

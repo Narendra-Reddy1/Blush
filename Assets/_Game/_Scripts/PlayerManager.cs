@@ -3,24 +3,24 @@ using UnityEngine;
 namespace Naren_Dev
 {
 
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : MonoBehaviour, IInitializer
     {
 
         private float playerWidth;
         private RaycastHit2D hit;
         public SpriteRenderer spriteRenderer;
-        [SerializeField]private Transform m_playerParent;
+        [SerializeField] private Transform m_playerParent;
 
         [Tooltip("Point from where to check player detection.")]
         [SerializeField] private Transform m_playerCheck;
 
         [Tooltip("Point from where to check ground detection.")]
-        [SerializeField] private Transform m_groundCheck; 
+        [SerializeField] private Transform m_groundCheck;
 
         [Tooltip("Layer to check with ground i.e to to bring collision check only with desired layer.")]
         [SerializeField] private LayerMask layerMask;
 
-       [Tooltip("Distance to check from the player to ground.")]
+        [Tooltip("Distance to check from the player to ground.")]
         [SerializeField] private float m_checkDistance = 0.1f;
 
         [Tooltip("Box Size to check isPlayerOnHead or not.")]
@@ -30,15 +30,15 @@ namespace Naren_Dev
         [SerializeField] private Vector2 gcBoxSize = new Vector2(0.1f, 0.1f);
 
         [HideInInspector] public bool isGrounded; //boolean to check whether the player is on ground or not.
-        
+
         [Tooltip("Boolean to check whether player is on head")]
-        public bool isPlayerOnHead; 
-        
+        public bool isPlayerOnHead;
+
         //public int playerId;
 
         private void Awake()
         {
-            CheckDependencies();
+            Init();
         }
 
         private void Start()
@@ -48,9 +48,9 @@ namespace Naren_Dev
         }
         private void Update()
         {
-         
+
             CheckSurroundings();
-            
+
         }
 
         private void LateUpdate()
@@ -58,7 +58,7 @@ namespace Naren_Dev
             CalculateBounds();
         }
 
-        private void CheckDependencies()
+        public void Init()
         {
             if (m_playerParent == null) m_playerParent = transform.parent;
 
@@ -86,11 +86,11 @@ namespace Naren_Dev
             else isPlayerOnHead = false;
         }
 
-      
+
         void CalculateBounds()
         {
             Vector3 viewPos = transform.position;
-            viewPos.x = Mathf.Clamp(viewPos.x, GameManager.instance.MinScreenBound +playerWidth,
+            viewPos.x = Mathf.Clamp(viewPos.x, GameManager.instance.MinScreenBound + playerWidth,
                 GameManager.instance.MaxScreenBound - playerWidth);
             transform.position = viewPos;
         }

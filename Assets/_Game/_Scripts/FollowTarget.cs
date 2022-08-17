@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Naren_Dev
 {
     [RequireComponent(typeof(Camera))]
-    public class FollowTarget : MonoBehaviour
+    public class FollowTarget : MonoBehaviour, IInitializer
     {
         public List<Transform> m_targets = new List<Transform>();
 
@@ -21,15 +21,21 @@ namespace Naren_Dev
         private void Awake()
         {
             //  if (m_camera = null) TryGetComponent(out m_camera);
-            if(m_camera==null)m_camera = Camera.main;
+            Init();
         }
         private void LateUpdate()
         {
-            if (m_targets.Count == 0)
+            if (m_targets.Count <= 0)
                 return;
             TrackTheTarget();
-            AdjustCameraView();
+            //  AdjustCameraView();
         }
+
+        public void Init()
+        {
+            if (m_camera == null) m_camera = Camera.main;
+        }
+
         private void AdjustCameraView()
         {
             Vector2 target1 = m_targets[0].position;

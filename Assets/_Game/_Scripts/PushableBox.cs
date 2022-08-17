@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Naren_Dev
 {
-    public class PushableBox : MonoBehaviour
+    public class PushableBox : MonoBehaviour, IInitializer
     {
 
         #region Variables
@@ -26,7 +26,7 @@ namespace Naren_Dev
 
         private void Awake()
         {
-            _Init();
+            Init();
 
         }
 
@@ -35,7 +35,7 @@ namespace Naren_Dev
             switch (other.collider.tag)
             {
                 case "Player":
-                    contactColliders=new List<Collider2D>();
+                    contactColliders = new List<Collider2D>();
                     int i = m_pushBoxCollider.GetContacts(contactColliders);
                     //contactColliders = m_colliders.ToList();
                     if (contactColliders.Contains(m_groundCollider))
@@ -92,7 +92,7 @@ namespace Naren_Dev
 
         #region Custom Methods
 
-        private void _Init()
+        public void Init()
         {
             if (m_pushableRb == null) TryGetComponent(out m_pushableRb);
             if (m_pushBoxCollider == null) TryGetComponent(out m_pushBoxCollider);

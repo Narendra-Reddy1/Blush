@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Naren_Dev
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviour, IInitializer
     {
         public static GameManager instance { get; private set; }
         public GameState gameState;
@@ -28,7 +28,7 @@ namespace Naren_Dev
         private void Awake()
         {
             instance = this;
-            CheckDependencies();
+            Init();
             SetScreenBounds();
 
         }
@@ -46,7 +46,7 @@ namespace Naren_Dev
         }
 
 
-        private void CheckDependencies()
+        public void Init()
         {
             if (m_camera == null) m_camera = Camera.main;
             /* if (enemyDeathEffect == null) { Resources.Load("Assets/_Game/Prefabs/Effects/Death Effect.prefab"); }
