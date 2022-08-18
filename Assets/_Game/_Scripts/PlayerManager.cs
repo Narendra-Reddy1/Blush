@@ -90,8 +90,8 @@ namespace Naren_Dev
         void CalculateBounds()
         {
             Vector3 viewPos = transform.position;
-            viewPos.x = Mathf.Clamp(viewPos.x, GameManager.instance.MinScreenBound + playerWidth,
-                GameManager.instance.MaxScreenBound - playerWidth);
+            viewPos.x = Mathf.Clamp(viewPos.x, PlayerCameraController.MinScreenBound + playerWidth,
+                PlayerCameraController.MaxScreenBound - playerWidth);
             transform.position = viewPos;
         }
 

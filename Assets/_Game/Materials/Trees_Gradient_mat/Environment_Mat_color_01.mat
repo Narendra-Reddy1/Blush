@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Gradient_mat_0
+  m_Name: Environment_Mat_color_01
   m_Shader: {fileID: 4800000, guid: 32f82700d2f3c75449479a861f3b9c6e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,12 +20,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - _DirX: 59
-    - _DirY: 14
-    - _Exponent: 14
+    - _DirX: 45
+    - _DirY: 80
+    - _Exponent: 12
     - _Intensity: 0.001
     m_Colors:
     - _Color1: {r: 12, g: 12, b: 12, a: 1}
     - _Color2: {r: 71, g: 71, b: 71, a: 1}
-    - _UpVector: {r: 0.20736754, g: 0.9702957, b: 0.12459899, a: 0}
+    - _UpVector: {r: 0.6963642, g: 0.17364822, b: 0.6963642, a: 0}
   m_BuildTextureStacks: []

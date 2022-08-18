@@ -189,7 +189,6 @@ GameObject:
   - component: {fileID: 8310832252007975788}
   - component: {fileID: 8310832252007975793}
   - component: {fileID: 8310832252007975792}
-  - component: {fileID: 8310832252007975799}
   m_Layer: 6
   m_Name: 1way-moving platform
   m_TagString: Untagged
@@ -324,22 +323,3 @@ MonoBehaviour:
   m_moveSpeed: 4
   m_linesSize: 0.1
   m_lineColor: {r: 0, g: 1, b: 0.3141179, a: 1}
---- !u!95 &8310832252007975799
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8310832252007975794}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0

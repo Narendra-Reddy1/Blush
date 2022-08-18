@@ -18,6 +18,9 @@ namespace Naren_Dev
                 case "JumpPad":
 
                     break;
+                case "Checkpoint":
+                    EventHandler.TriggerEvent(EventID.EVENT_ON_CHECKPOINT_REACHED, other.transform);
+                    break;
             }
         }
 

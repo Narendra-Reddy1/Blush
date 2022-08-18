@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Naren_Dev
 {
@@ -9,11 +10,20 @@ namespace Naren_Dev
         MusicStatus = 0,
         SFXStatus = 1
     }
-    public enum id
+    public enum ControlScheme
     {
+        Touch,
+        JoyStick,
+        Keyboard
 
-        abc
     }
+
+    public enum GameMode
+    {
+        SinglePlayer,
+        MultiPlayer
+    }
+
     public enum AudioId
     {
         GamePlayBGM = 0,

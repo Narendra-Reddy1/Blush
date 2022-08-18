@@ -5,31 +5,31 @@ namespace Naren_Dev
 {
     public class GameManager : MonoBehaviour, IInitializer
     {
+        public Checkpoint checkpoint;
         public static GameManager instance { get; private set; }
         public GameState gameState;
         //[SerializeField]private 
         public GameObject enemyDeathEffect;
         public GameObject wheelSelectionHighlight;
-        [SerializeField] private Camera m_camera;
         [SerializeField] private AudioCueEventChannelSO m_audioEventChannel;
         // [SerializeField] private Material m_bgMaterial;
         [SerializeField] private List<Material> m_gradientMaterials;
 
+        //public float MinScreenBound => minScreenBounds.x;
+        //public float MaxScreenBound => maxScreenBounds.x;
 
-
-        public float MinScreenBound => minScreenBounds.x;
-        public float MaxScreenBound => maxScreenBounds.x;
-
-        private Vector3 minScreenBounds;
-        private Vector3 maxScreenBounds;
+        //private Vector3 minScreenBounds;
+        //private Vector3 maxScreenBounds;
         private float m_intensity = 0.1f;
         // [SerializeField]private float m_intensitySpeed = 2f;
+
+        #region Unity Methods
 
         private void Awake()
         {
             instance = this;
             Init();
-            SetScreenBounds();
+            //  SetScreenBounds();
 
         }
         private void Start()
@@ -37,18 +37,28 @@ namespace Naren_Dev
             m_audioEventChannel.RaiseMusicPlayEvent(AudioId.GamePlayBGM);
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            SetScreenBounds();
-            if (!InputManager.instance.hasControlAcces)
-                ApplyColorsToLevel();
-
+            EventHandler.AddListener(EventID.EVENT_ON_CHECKPOINT_REACHED, Callback_On_Checkpoint_Reached);
         }
+        private void OnDisable()
+        {
+            EventHandler.RemoveListener(EventID.EVENT_ON_CHECKPOINT_REACHED, Callback_On_Checkpoint_Reached);
+        }
+
+        #endregion Unity Methods
+        //private void Update()
+        //{
+        //   // SetScreenBounds();
+        //    //if (!InputManager.instance.hasControlAcces)
+        //    //    ApplyColorsToLevel();
+
+        //}
 
 
         public void Init()
         {
-            if (m_camera == null) m_camera = Camera.main;
+            // if (m_camera == null) m_camera = Camera.main;
             /* if (enemyDeathEffect == null) { Resources.Load("Assets/_Game/Prefabs/Effects/Death Effect.prefab"); }
              if (wheelSelectionHighlight == null)
                  Resources.Load("Assets/_Game/Prefabs/Wheel Sec_Highlight.prefab");*/
@@ -63,13 +73,11 @@ namespace Naren_Dev
 
         }
 
-
-        private void SetScreenBounds()
+        public void OnCheckpointReached(Vector2 checkpointPos)
         {
-            minScreenBounds = m_camera.ScreenToWorldPoint(new Vector3(0, Screen.height, m_camera.transform.position.z));
-            maxScreenBounds = m_camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, m_camera.transform.position.z));
+            checkpoint.postion = checkpointPos;
+            
         }
-
 
         private void ApplyColorsToLevel()
         {
@@ -100,5 +108,14 @@ namespace Naren_Dev
         {
 
         }
+
+        #region Callbacks
+        public void Callback_On_Checkpoint_Reached(object args)
+        {
+            OnCheckpointReached((Vector2)(args));
+        }
+
+        #endregion Callbacks
+
     }
 }

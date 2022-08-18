@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Naren_Dev
 {
     [RequireComponent(typeof(Camera))]
-    public class FollowTarget : MonoBehaviour, IInitializer
+    public class PlayerCameraController : MonoBehaviour, IInitializer
     {
         public List<Transform> m_targets = new List<Transform>();
 
@@ -14,6 +14,14 @@ namespace Naren_Dev
         private Vector3 m_middlePos;
         private Vector3 m_currDampVelocity;
         private float vel = 0f;
+
+        public static float MinScreenBound => minScreenBounds.x;
+        public static float MaxScreenBound => maxScreenBounds.x;
+
+
+        private static Vector3 minScreenBounds;
+        private static Vector3 maxScreenBounds;
+
         [Tooltip("Higher value smoothens. Lower value fastens")]
         [SerializeField] private float m_transitionVelocity = 25f;
         [SerializeField] private float m_smoothDampVelociy = .25f;
@@ -22,6 +30,10 @@ namespace Naren_Dev
         {
             //  if (m_camera = null) TryGetComponent(out m_camera);
             Init();
+        }
+        private void Update()
+        {
+            SetScreenBounds();
         }
         private void LateUpdate()
         {
@@ -34,6 +46,12 @@ namespace Naren_Dev
         public void Init()
         {
             if (m_camera == null) m_camera = Camera.main;
+        }
+
+        private void SetScreenBounds()
+        {
+            minScreenBounds = m_camera.ScreenToWorldPoint(new Vector3(0, Screen.height, m_camera.transform.position.z));
+            maxScreenBounds = m_camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, m_camera.transform.position.z));
         }
 
         private void AdjustCameraView()
@@ -56,7 +74,7 @@ namespace Naren_Dev
         {
             m_middlePos = GetCenter();
             m_middlePos.z = -10;
-            m_middlePos.y += 3f;
+           // m_middlePos.y += 3f;
             // this.transform.position=new Vector3(m_middlePos.x,)
             this.transform.position = Vector3.SmoothDamp(transform.position, m_middlePos, ref m_currDampVelocity, m_smoothDampVelociy);
         }

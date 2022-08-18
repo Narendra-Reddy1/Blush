@@ -8,20 +8,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game/Scenes/Main/InitScene.unity
     guid: 9538521b96887e945980cce1aaa76694
-  - enabled: 1
-    path: Assets/_Game/Scenes/Main/PersistentManagers.unity
-    guid: 18bd22e3e457eae4a9e1ba976ca57f52
-  - enabled: 1
-    path: Assets/_Game/Scenes/Main/Tutorial.unity
-    guid: 27269dff4a8193b4eb96c31123bdf620
-  - enabled: 1
-    path: Assets/_Game/Scenes/Main/Tutorial_1.unity
-    guid: 4e18fb42cae4ace4fb79d5436b75cf15
-  - enabled: 1
-    path: Assets/_Game/Scenes/Main/PersistentLevel.unity
-    guid: a88817d0186b16c42857b9f7e7f52e3b
-  - enabled: 1
-    path: Assets/_Game/Scenes/Main/Level_01.unity
-    guid: ab5bd0900cf97bb4d8bda6ecb79b5a91
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: d76a14711f0307e4099fd722465d895c, type: 2}

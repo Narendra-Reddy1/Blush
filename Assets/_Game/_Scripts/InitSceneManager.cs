@@ -16,7 +16,7 @@ public class InitSceneManager : MonoBehaviour
     private AsyncOperationHandle persistantSceneHandle;
 
 
-    public void Awake()
+    public void Start()
     {
         LoadPersistenScene();
     }
@@ -30,8 +30,11 @@ public class InitSceneManager : MonoBehaviour
 
 
           };*/
-        persistantSceneHandle = m_persistentManagers.LoadSceneAsync(LoadSceneMode.Single, true);
-        await persistantSceneHandle.Task;
-        m_persistentLevel.LoadSceneAsync(LoadSceneMode.Additive, true);
+        var handle = m_tutorial.LoadSceneAsync(LoadSceneMode.Single, true);
+        await handle.Task;
+        var persistentHandle = m_persistentLevel.LoadSceneAsync(LoadSceneMode.Additive, true);
+        await persistentHandle.Task;
+      //  SceneManager.SetActiveScene(persistentHandle.Result.Scene);
+        m_persistentManagers.LoadSceneAsync(LoadSceneMode.Additive, true);
     }
 }

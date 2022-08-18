@@ -22,12 +22,7 @@ namespace Naren_Dev
                 m_audioEventChannel.RaiseSFXPlayEvent(AudioId.MerchantTransitionSFX);
                 //  AudioManager.instance.PlaySFX(AudioId.MerchantTransitionSFX);
                 GetComponent<Collider2D>().enabled = false;
-                UIManager.instance.UnlockColor(1, true);
-                UIManager.instance.UnlockColor(2, true);
-                UIManager.instance.UnlockColor(1, false);
-                UIManager.instance.UnlockColor(2, false);
-
-                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Tutorial_1", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+              //  UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Tutorial_1", UnityEngine.SceneManagement.LoadSceneMode.Additive);
                 // InputManager.instance.hasControlAcces = false;
                 m_merchantAnim.SetTrigger("canAppear");
                 Invoke(nameof(_Disappear), 1.5f);

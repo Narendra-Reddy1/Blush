@@ -36,7 +36,7 @@ namespace Naren_Dev
         [SerializeField] private Color m_portalColor_2;
         [SerializeField] private Color m_portalColor_3;
         [SerializeField] private AudioCueEventChannelSO m_audioEventChannel;
-        private Vector2 m_inputAxis;
+        private float m_inputAxis;
         private bool canJump;
 
         /* =========ColorWheelProperties======= */
@@ -73,16 +73,16 @@ namespace Naren_Dev
         private void Update()
         {
 
-            if (InputManager.instance.hasControlAcces)
-            {
-                GetInput();
+            //if (InputManager.instance.hasControlAcces)
+            //{
+            GetInput();
 
-                GetAndSetColorState();
-                ApplyJump();
+            GetAndSetColorState();
+            ApplyJump();
 
-            }
-            else
-                HaultPlayer();
+            //}
+            //else
+            //    HaultPlayer();
             VelocityController();
             SetAnimationIds();
 
@@ -148,7 +148,8 @@ namespace Naren_Dev
 
         private void GetInput()
         {
-            m_inputAxis = isPlayerA ? InputManager.instance.playerAMoveAxis : InputManager.instance.playerBMoveAxis;
+            if (InputManager.instance == null) return;
+            m_inputAxis = isPlayerA ? InputManager.instance.playerAMoveAxis.x : InputManager.instance.playerBMoveAxis.x;
             m_wheelIndexInput = isPlayerA ? InputManager.instance.playerAWheelIndex : InputManager.instance.playerBWheelIndex;
             canJump = isPlayerA ? InputManager.instance.pA_canJump : InputManager.instance.pB_canJump;
         }
@@ -170,7 +171,7 @@ namespace Naren_Dev
                 transform.rotation = Quaternion.Euler(180f, 0f, 0f);
             }
 
-            m_playerRb.velocity = new Vector2(m_inputAxis.x * m_moveSpeed, m_playerRb.velocity.y);
+            m_playerRb.velocity = new Vector2(m_inputAxis * m_moveSpeed, m_playerRb.velocity.y);
 
         }
 
@@ -192,14 +193,14 @@ namespace Naren_Dev
 
         private void FlipPlayer()
         {
-            if (m_inputAxis.x > 0)
+            if (m_inputAxis > 0)
             {
                 m_playerManager.spriteRenderer.flipX = false;
                 m_eyesRenderer.flipX = false;
                 m_eyes.transform.localPosition = m_eyesOffset;
 
             }
-            else if (m_inputAxis.x < 0)
+            else if (m_inputAxis < 0)
             {
                 m_playerManager.spriteRenderer.flipX = true;
                 m_eyesRenderer.flipX = true;
@@ -222,7 +223,7 @@ namespace Naren_Dev
         private void HaultPlayer()
         {
             m_playerRb.velocity = Vector2.zero;
-            m_inputAxis = Vector2.zero;
+            m_inputAxis = 0f;
         }
 
 
@@ -231,8 +232,8 @@ namespace Naren_Dev
         private void SetAnimationIds()
         {
 
-            m_playerAnim.SetFloat("walking", m_inputAxis.x);
-            m_eyesAnim.SetFloat("walking", m_inputAxis.x);
+            m_playerAnim.SetFloat("walking", m_inputAxis);
+            m_eyesAnim.SetFloat("walking", m_inputAxis);
         }
 
         #region Color Selection

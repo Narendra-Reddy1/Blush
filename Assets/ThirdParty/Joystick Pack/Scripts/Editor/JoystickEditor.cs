@@ -13,6 +13,7 @@ public class JoystickEditor : Editor
     private SerializedProperty snapY;
     protected SerializedProperty background;
     private SerializedProperty handle;
+    private SerializedProperty OnJoystickDrag;
 
     protected Vector2 center = new Vector2(0.5f, 0.5f);
 
@@ -25,6 +26,7 @@ public class JoystickEditor : Editor
         snapY = serializedObject.FindProperty("snapY");
         background = serializedObject.FindProperty("background");
         handle = serializedObject.FindProperty("handle");
+        OnJoystickDrag = serializedObject.FindProperty("OnJoystickDrag");
     }
 
     public override void OnInspectorGUI()
