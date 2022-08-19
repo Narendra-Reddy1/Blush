@@ -112,9 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39d5305adb502f41839a1b42cf1b3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPatrollingMob: 1
-  maxPositon: {x: 0, y: 0}
-  minPosition: {x: 0, y: 0}
+  m_addressableHelper: {fileID: 11400000, guid: 44f73d8e1858d874c889a179b170c578, type: 2}
+  m_enemyBehaviour: {fileID: 4448600494458845920}
 --- !u!1 &4448600493449570349
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,9 +290,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0248a67e984746f49a8410b14407ba72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyState: 0
   isPatrollingMob: 1
   m_patrollingSpeed: 3
   m_spriteRenderer: {fileID: 4448600494458845925}
+  m_sofSpotRenderer: {fileID: 4448600492557753315}
   m_leftPoint: {fileID: 4448600494443294257}
   m_rightPoint: {fileID: 4448600494510630939}
 --- !u!1 &4448600494510630938

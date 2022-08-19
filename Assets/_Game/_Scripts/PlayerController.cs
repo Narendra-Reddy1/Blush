@@ -22,7 +22,7 @@ namespace Naren_Dev
         [SerializeField] private Animator m_playerAnim;
         [SerializeField] private Animator m_eyesAnim;
         // [SerializeField] private SpriteRenderer m_spriteRenderer;
-        [SerializeField] private SpriteRenderer m_eyesRenderer;
+        // [SerializeField] private SpriteRenderer m_eyesRenderer;
         [SerializeField] private GameObject m_eyes;
         [SerializeField] private PlayerManager m_playerManager;
         [SerializeField] private Rigidbody2D m_playerRb;
@@ -72,9 +72,14 @@ namespace Naren_Dev
 
         private void Update()
         {
+            if (GlobalVariables.playerState == PlayerState.Dead)
+            {
+                m_inputAxis = 0f;
+                m_playerRb.velocity = Vector2.zero;
+                return;
+            }
 
-            //if (InputManager.instance.hasControlAcces)
-            //{
+
             GetInput();
 
             GetAndSetColorState();
@@ -134,10 +139,10 @@ namespace Naren_Dev
                     m_eyes = GameObject.Find("Eyes_Player_B");
                 }
             }
-            if (m_eyesRenderer == null)
-            {
-                m_eyesRenderer = m_eyes.GetComponent<SpriteRenderer>();
-            }
+            //if (m_eyesRenderer == null)
+            //{
+            //    m_eyesRenderer = m_eyes.GetComponent<SpriteRenderer>();
+            //}
             if (m_playerAnim == null || m_eyesAnim == null)
             {
                 m_playerAnim = GetComponent<Animator>();
@@ -196,14 +201,14 @@ namespace Naren_Dev
             if (m_inputAxis > 0)
             {
                 m_playerManager.spriteRenderer.flipX = false;
-                m_eyesRenderer.flipX = false;
+                m_playerManager.eyesRenderer.flipX = false;
                 m_eyes.transform.localPosition = m_eyesOffset;
 
             }
             else if (m_inputAxis < 0)
             {
                 m_playerManager.spriteRenderer.flipX = true;
-                m_eyesRenderer.flipX = true;
+                m_playerManager.eyesRenderer.flipX = true;
 
                 Vector2 offset = m_eyesOffset;
                 offset.x *= -1;

@@ -12,7 +12,7 @@ namespace Naren_Dev
     public delegate void Callback(Object arg);
 
     /*** A handler for events that have one parameter of type T. ***/
-    public static class EventHandler
+    public static class GlobalEventHandler
     {
 
         private static Dictionary<EventID, Delegate> eventTable = new Dictionary<EventID, Delegate>();

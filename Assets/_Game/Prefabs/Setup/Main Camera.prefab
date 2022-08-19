@@ -134,6 +134,9 @@ MonoBehaviour:
   m_targets:
   - {fileID: 0}
   - {fileID: 0}
+  m_camera: {fileID: 0}
+  m_shakeThreshold: {x: 0, y: 0, z: 0}
+  m_shakeDuration: 0
   m_transitionVelocity: 25
   m_smoothDampVelociy: 0.25
   m_minCamSize: 8

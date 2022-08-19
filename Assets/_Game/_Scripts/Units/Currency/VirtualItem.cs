@@ -11,10 +11,10 @@ namespace Naren_Dev
 		public delegate void CurrencyBalance();
 		public static event CurrencyBalance onCurrencyBalanceChanged;
 
-		public string itemId;
+		public ResourceID itemId;
 		public VirtualItemType virtualItemType;
 
-		public VirtualItem(string itemId, VirtualItemType virtualItemType)
+		public VirtualItem(ResourceID itemId, VirtualItemType virtualItemType)
 		{
 			this.itemId = itemId;
 			this.virtualItemType = virtualItemType;
@@ -51,7 +51,7 @@ namespace Naren_Dev
 
 		public virtual string GetPurchaseCurrency()
 		{
-			return PlayerResourcesManager.COINS_ITEM_ID;
+			return PlayerResourcesManager.KEDOS_ITEM_ID;
 		}
 
 		public virtual int GetPurchaseValue()
@@ -59,7 +59,7 @@ namespace Naren_Dev
 			return 100;
 		}
 
-		public virtual void DeductCurrencyBalance(string purchaseCurrency, int puchasePrice)
+		public virtual void DeductCurrencyBalance(ResourceID purchaseCurrency, int puchasePrice)
 		{
 			Debug.Log(this.GetType().Name + "  " + System.Reflection.MethodBase.GetCurrentMethod().Name);
 			PlayerResourcesManager.Take(purchaseCurrency, puchasePrice);

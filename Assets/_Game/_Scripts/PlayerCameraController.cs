@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,11 +7,14 @@ namespace Naren_Dev
     [RequireComponent(typeof(Camera))]
     public class PlayerCameraController : MonoBehaviour, IInitializer
     {
-        public List<Transform> m_targets = new List<Transform>();
+        #region Variables
 
         //   private Vector3 m_offSet = new Vector3(0f, 0f,-10);
-        private Bounds bounds;
+        [SerializeField] private List<Transform> m_targets = new List<Transform>();
         [SerializeField] private Camera m_camera;
+        [SerializeField] private Vector3 m_shakeThreshold;
+        [SerializeField] private float m_shakeDuration;
+        private Bounds bounds;
         private Vector3 m_middlePos;
         private Vector3 m_currDampVelocity;
         private float vel = 0f;
@@ -26,10 +30,30 @@ namespace Naren_Dev
         [SerializeField] private float m_transitionVelocity = 25f;
         [SerializeField] private float m_smoothDampVelociy = .25f;
         [SerializeField] private float m_minCamSize = 8, m_maxCamSize = 15;
+
+        #endregion Variables
+
+        #region Unity Methods
         private void Awake()
         {
             //  if (m_camera = null) TryGetComponent(out m_camera);
             Init();
+        }
+        private void OnDrawGizmos()
+        {
+
+            Gizmos.DrawIcon(GetCenter(), "center");
+        }
+        private void OnEnable()
+        {
+            GlobalEventHandler.AddListener(EventID.EVENT_ON_PLAYER_DEAD, Callback_On_Player_Dead);
+            GlobalEventHandler.AddListener(EventID.EVENT_ON_PLAYER_RESPAWN, Callback_On_Player_Respawned);
+        }
+        private void OnDisable()
+        {
+            GlobalEventHandler.RemoveListener(EventID.EVENT_ON_PLAYER_DEAD, Callback_On_Player_Dead);
+            GlobalEventHandler.RemoveListener(EventID.EVENT_ON_PLAYER_RESPAWN, Callback_On_Player_Respawned);
+            m_targets = null;
         }
         private void Update()
         {
@@ -43,11 +67,17 @@ namespace Naren_Dev
             //  AdjustCameraView();
         }
 
+        #endregion Unity Methods
+
+        #region Custom Methods
         public void Init()
         {
             if (m_camera == null) m_camera = Camera.main;
         }
-
+        private void ShakeCameraPosition()
+        {
+            transform.DOPunchPosition(m_shakeThreshold, m_shakeDuration);
+        }
         private void SetScreenBounds()
         {
             minScreenBounds = m_camera.ScreenToWorldPoint(new Vector3(0, Screen.height, m_camera.transform.position.z));
@@ -74,7 +104,7 @@ namespace Naren_Dev
         {
             m_middlePos = GetCenter();
             m_middlePos.z = -10;
-           // m_middlePos.y += 3f;
+            // m_middlePos.y += 3f;
             // this.transform.position=new Vector3(m_middlePos.x,)
             this.transform.position = Vector3.SmoothDamp(transform.position, m_middlePos, ref m_currDampVelocity, m_smoothDampVelociy);
         }
@@ -89,20 +119,19 @@ namespace Naren_Dev
             return bounds.center;
 
         }
-        private void OnDrawGizmos()
-        {
 
-            Gizmos.DrawIcon(GetCenter(), "center");
+        #endregion Custom methods
+
+        #region Callbacks
+        public void Callback_On_Player_Dead(object args)
+        {
+            ShakeCameraPosition();
+        }
+        public void Callback_On_Player_Respawned(object args)
+        {
+            ShakeCameraPosition();
         }
 
-        private void OnDisable()
-        {
-            m_targets = null;
-        }
-
+        #endregion Callbacks
     }
-
-
-
-
 }

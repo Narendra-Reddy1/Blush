@@ -18,7 +18,7 @@ namespace Naren_Dev
         private static bool m_isPlayerDataLoaded = false;
         public int levelKey { get; private set; }
 
-        public Func<bool> OnDataInitialized { get; private set; }
+        public static Func<bool> OnDataInitialized { get; private set; }
         #endregion
 
         #region Unity Built-In Methods
@@ -38,7 +38,7 @@ namespace Naren_Dev
 
         public void Start()
         {
-            if (m_playerData == null)
+            if (SessionTracker.SessionNumber == 1)
             {
                 //First time game is being opened
                 m_playerData = new PlayerData();
@@ -63,8 +63,6 @@ namespace Naren_Dev
         {
             OnDataInitialized -= IsPlayerDataLoaded;
         }
-
-
         #endregion
 
         #region Custom Methods
@@ -78,10 +76,10 @@ namespace Naren_Dev
         /// </summary>
         public void SaveData()
         {
-            //m_playerData.storeInventory = PlayerResourceManager.StoreInventory;
-            //m_playerData.levelKey = GlobalVariables.HighestUnlockedLevelKey;
-            //m_playerData.levelIndex = GlobalVariables.HighestUnlockedLevel;
+            m_playerData.storeInventory = PlayerResourcesManager.StoreInventory;
+            m_playerData.highestUnlockedLevel = GlobalVariables.HighestUnlockedLevel;
             DataSerializer.Save<PlayerData>("playerData.dat", m_playerData);
+            SovereignUtils.Log($"Done with saving...");
         }
 
         /// <summary>
@@ -99,9 +97,8 @@ namespace Naren_Dev
                 SaveData();
                 return;
             }
-            //PlayerResourceManager.StoreInventory = m_playerData.storeInventory;
-            //GlobalVariables.HighestUnlockedLevelKey = m_playerData.levelKey;
-            //GlobalVariables.HighestUnlockedLevel = m_playerData.levelIndex;
+            PlayerResourcesManager.StoreInventory = m_playerData.storeInventory;
+            GlobalVariables.HighestUnlockedLevel = m_playerData.highestUnlockedLevel;
             Debug.Log("Done with Loading");
         }
 
@@ -171,15 +168,15 @@ namespace Naren_Dev
     public class PlayerData
     {
         //public string levelKey;
-        public int levelIndex;
+        public int highestUnlockedLevel;
 
-        //public Dictionary<string, VirtualItem> storeInventory;
+        public Dictionary<ResourceID, VirtualItem> storeInventory;
 
         public PlayerData()
         {
 
-            //this.storeInventory = new Dictionary<string, VirtualItem>();
-            //this.levelKey = levelKey;
+            this.storeInventory = new Dictionary<ResourceID, VirtualItem>();
+            this.highestUnlockedLevel = 0;
         }
 
     }

@@ -44,11 +44,19 @@ namespace Naren_Dev
         Completed = 2,
         CutScene = 3
     }
+    public enum PlayerState
+    {
+        Alive,
+        Dead,
+    }
 
     public enum PlayerPrefKeys
     {
         MusicStatus,
-        SFXStatus
+        SFXStatus,
+        MainMenuSessionCounter,
+        SessionNumber
+
     }
 }
 

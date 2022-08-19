@@ -13,13 +13,16 @@ namespace Naren_Dev
             switch (other.tag)
             {
                 case "Collectable":
-                    CollectableManager.instance?.onCollectableCollected?.Invoke(other.GetComponent<Collectable>(), this.transform);
+                    Transform[] args = { transform, other.transform };
+                    GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_COLLECTABLE_COLLECTED, args);
+                    other.enabled = false;
                     break;
                 case "JumpPad":
 
                     break;
                 case "Checkpoint":
-                    EventHandler.TriggerEvent(EventID.EVENT_ON_CHECKPOINT_REACHED, other.transform);
+                    GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_CHECKPOINT_REACHED, other.gameObject);
+                    other.enabled = false;
                     break;
             }
         }

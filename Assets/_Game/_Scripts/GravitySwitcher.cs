@@ -2,84 +2,43 @@ using UnityEngine;
 
 namespace Naren_Dev
 {
-
+    /// <summary>
+    /// This script responsible to switch the player gravity
+    /// </summary>
     public class GravitySwitcher : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D playerRb;
-        /*public bool isVelocityGained = false;
-        public float maxVelocity;*/
         public bool isGravitySwitched = false;
         private void Awake()
         {
             if (playerRb == null)
                 playerRb = GetComponent<Rigidbody2D>();
+        }
+        public void SwitchToNormalGravity()
+        {
+            if (playerRb.gravityScale > 0) return;
+            playerRb.gravityScale = Mathf.Abs(playerRb.gravityScale);
+            isGravitySwitched = false;
 
         }
-
-        /* private void OnTriggerEnter2D(Collider2D other)
-         {
-             if (other.CompareTag("NormalGravity"))
-             {
-                 if (playerRb.gravityScale < 0)
-                     playerRb.gravityScale = Mathf.Abs(playerRb.gravityScale);
-             }
-         }
- */
+        public void SwitchToInverseGravity()
+        {
+            if (playerRb.gravityScale < 0) return;
+            playerRb.gravityScale = -playerRb.gravityScale;
+            isGravitySwitched = true;
+        }
         private void OnTriggerExit2D(Collider2D other)
         {
-
-            /*if (!isVelocityGained)
-            {
-                maxVelocity = playerRb.velocity.y;
-                isVelocityGained = true;
-            }*/
-
             switch (other.tag)
             {
                 case "NormalGravity":
-                    if (playerRb.gravityScale < 0)
-                    {
-                        playerRb.gravityScale = Mathf.Abs(playerRb.gravityScale);
-                        isGravitySwitched = false;
-
-                    }
+                    SwitchToNormalGravity();
                     break;
                 case "InverseGravity":
-                    if (playerRb.gravityScale > 0)
-                    {
 
-                        playerRb.gravityScale = -playerRb.gravityScale;
-                        isGravitySwitched = true;
-
-                    }
-                    break;/*
-                case "NeutralPortal":
-                    AudioManager.instance.PlaySFX(AudioId.)
-                    break;*/
+                    SwitchToInverseGravity();
+                    break;
             }
-
-/*
-            if (other.CompareTag("NormalGravity"))
-            {
-                if (playerRb.gravityScale < 0)
-                {
-                    playerRb.gravityScale = Mathf.Abs(playerRb.gravityScale);
-                    isGravitySwitched = false;
-
-                }
-
-            }
-
-            if (other.CompareTag("InverseGravity"))
-            {
-                if (playerRb.gravityScale > 0)
-                {
-
-                    playerRb.gravityScale = -playerRb.gravityScale;
-                    isGravitySwitched = true;
-
-                }
-            }*/
         }
     }
 }

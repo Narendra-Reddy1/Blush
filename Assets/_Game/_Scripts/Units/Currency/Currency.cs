@@ -19,21 +19,21 @@ namespace Naren_Dev
             }
         }
 
-        public Currency(string itemId)
+        public Currency(ResourceID itemId)
             : base(itemId, VirtualItemType.CURRENCY)
         {
             this.balance = 0;
             this.maxBalance = 9999999;
         }
 
-        public Currency(string itemId, int maxBalance)
+        public Currency(ResourceID itemId, int maxBalance)
             : base(itemId, VirtualItemType.CURRENCY)
         {
             this.balance = 0;
             this.maxBalance = maxBalance;
         }
 
-        public Currency(string itemId, int startBalance, int maxBalance)
+        public Currency(ResourceID itemId, int startBalance, int maxBalance)
             : base(itemId, VirtualItemType.CURRENCY)
         {
             this.balance = startBalance;
@@ -65,7 +65,7 @@ namespace Naren_Dev
             //Give will update the collected balance, actual balance will get updated 
             //after the HUD animation in home screen
 
-            collectedBalance = collectedBalance + quantity;
+            collectedBalance += quantity;
 
             //Debug.LogError("balance : " + balance + " quantity : " + quantity + " maxBalance : " + maxBalance);
 

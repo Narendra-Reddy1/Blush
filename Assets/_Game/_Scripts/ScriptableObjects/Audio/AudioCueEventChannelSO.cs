@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Naren_Dev
 {
-    [CreateAssetMenu(fileName = "newAudioEventChannel", menuName = "ScriptablesObjects/Audio/Events/AudioEventChannel")]
+    [CreateAssetMenu(fileName = "newAudioEventChannel", menuName = "ScriptableObjects/Audio/Events/AudioEventChannel")]
     public class AudioCueEventChannelSO : BaseScriptableObject
     {
         public Action<AudioId, float, bool> OnMusicPlayRequested = default;

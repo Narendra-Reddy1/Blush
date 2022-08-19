@@ -5,24 +5,20 @@ namespace Naren_Dev
 {
     public class GameManager : MonoBehaviour, IInitializer
     {
-        public Checkpoint checkpoint;
         public static GameManager instance { get; private set; }
-        public GameState gameState;
-        //[SerializeField]private 
-        public GameObject enemyDeathEffect;
+        private GameState gameState;
+
+        [Range(0.1f, 5.0f)]
+        [SerializeField] private float m_respawnDelay = 0.5f;
+        private List<EnemyBehaviour> m_killedEnemiesInTheLevel;
+        //   public GameObject enemyDeathEffect;
         public GameObject wheelSelectionHighlight;
         [SerializeField] private AudioCueEventChannelSO m_audioEventChannel;
         // [SerializeField] private Material m_bgMaterial;
         [SerializeField] private List<Material> m_gradientMaterials;
-
-        //public float MinScreenBound => minScreenBounds.x;
-        //public float MaxScreenBound => maxScreenBounds.x;
-
-        //private Vector3 minScreenBounds;
-        //private Vector3 maxScreenBounds;
         private float m_intensity = 0.1f;
-        // [SerializeField]private float m_intensitySpeed = 2f;
 
+        public GameState GameState => gameState;
         #region Unity Methods
 
         private void Awake()
@@ -30,7 +26,6 @@ namespace Naren_Dev
             instance = this;
             Init();
             //  SetScreenBounds();
-
         }
         private void Start()
         {
@@ -39,11 +34,11 @@ namespace Naren_Dev
 
         private void OnEnable()
         {
-            EventHandler.AddListener(EventID.EVENT_ON_CHECKPOINT_REACHED, Callback_On_Checkpoint_Reached);
+            GlobalEventHandler.AddListener(EventID.EVENT_ON_PLAYER_DEAD, Callback_On_Player_Dead);
         }
         private void OnDisable()
         {
-            EventHandler.RemoveListener(EventID.EVENT_ON_CHECKPOINT_REACHED, Callback_On_Checkpoint_Reached);
+            GlobalEventHandler.RemoveListener(EventID.EVENT_ON_PLAYER_DEAD, Callback_On_Player_Dead);
         }
 
         #endregion Unity Methods
@@ -62,7 +57,7 @@ namespace Naren_Dev
             /* if (enemyDeathEffect == null) { Resources.Load("Assets/_Game/Prefabs/Effects/Death Effect.prefab"); }
              if (wheelSelectionHighlight == null)
                  Resources.Load("Assets/_Game/Prefabs/Wheel Sec_Highlight.prefab");*/
-
+            m_killedEnemiesInTheLevel = new List<EnemyBehaviour>();
 
             foreach (Material mat in m_gradientMaterials)
             {
@@ -73,11 +68,6 @@ namespace Naren_Dev
 
         }
 
-        public void OnCheckpointReached(Vector2 checkpointPos)
-        {
-            checkpoint.postion = checkpointPos;
-            
-        }
 
         private void ApplyColorsToLevel()
         {
@@ -109,10 +99,64 @@ namespace Naren_Dev
 
         }
 
-        #region Callbacks
-        public void Callback_On_Checkpoint_Reached(object args)
+        //private void OnNewLevelLoaded()
+        //{
+        //    GlobalVariables.STARTING_POINT = GameObject.FindGameObjectWithTag("Start").transform.position;
+        //}
+
+        public void onNewEnemyKilled(EnemyBehaviour newEnemy)
         {
-            OnCheckpointReached((Vector2)(args));
+            if (!m_killedEnemiesInTheLevel.Contains(newEnemy))
+                m_killedEnemiesInTheLevel.Add(newEnemy);
+        }
+        private void _OnNewLevelStarted()
+        {
+            m_killedEnemiesInTheLevel.Clear();
+        }
+
+
+        /// <summary>
+        /// Update game state as any of these <br></br>
+        /// 1.Game Started <br></br>
+        /// 2.Game Completed<br></br>
+        /// 3.MainMenu<br></br>
+        /// 4.CutScene<br></br>
+        /// </summary>
+        /// <returns></returns>
+        private void _UpdateGameState(GameState state)
+        {
+            if (gameState == state) return;
+            gameState = state;
+        }
+        /// <summary>
+        /// This Methods gives us the information about the state of the game. <br></br>
+        /// 1.Game Started <br></br>
+        /// 2.Game Completed<br></br>
+        /// 3.MainMenu<br></br>
+        /// 4.CutScene<br></br>
+        /// </summary>
+        /// <returns></returns>
+        public GameState GetGameState() => gameState;
+
+        /// <summary>
+        /// Respawns Player after a defined delay of seconds at latest checkpoint if exists.<br></br>
+        /// else it will reload the level with all enemis without respawning the collected collectables.
+        /// </summary>
+        private async void RespawnPlayer()
+        {
+            await System.Threading.Tasks.Task.Delay((int)m_respawnDelay * 1000);
+            SovereignUtils.Log($"Respawning...Player..");
+            GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_PLAYER_RESPAWN, PlayerState.Alive);
+        }
+        private void RespawnAllEnemies()
+        {
+
+        }
+
+        #region Callbacks
+        public void Callback_On_Player_Dead(object args)
+        {
+            RespawnPlayer();
         }
 
         #endregion Callbacks

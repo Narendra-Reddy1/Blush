@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 
 namespace Naren_Dev
 {
-    [CreateAssetMenu(fileName = "newAudioFilesAsset", menuName = "ScriptablesObjects/Audio/AudioFilesAsset")]
+    [CreateAssetMenu(fileName = "newAudioFilesAsset", menuName = "ScriptableObjects/Audio/AudioFilesAsset")]
     public class AudioFilesConfig : BaseScriptableObject
     {
         [Header("==================SFX Audio Clips==================")]

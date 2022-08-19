@@ -29,6 +29,10 @@ MonoBehaviour:
     m_Address: Assets/_Game/Scenes/Main/PersistentManagers.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 8035315d4426d584e96d13caa172cbb9
+    m_Address: EnemyDeathEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 110e4a3012066b64abea82fbc8460af2, type: 2}
   m_SchemaSet:

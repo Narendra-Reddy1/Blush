@@ -8,7 +8,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Naren_Dev
 {
-    [CreateAssetMenu(fileName = "newAddressablesHelper", menuName = "ScriptablesObjects/AddressableHelper")]
+    [CreateAssetMenu(fileName = "newAddressablesHelper", menuName = "ScriptableObjects/AddressableHelper")]
     public class AddressablesHelper : BaseScriptableObject
     {
         public void LoadAssetAsync<T>(string key, Action<AsyncOperationHandle<T>> OnCompleted) where T : UnityEngine.Object
@@ -39,7 +39,7 @@ namespace Naren_Dev
             }
 
         }
-        public async void Instantiate(AssetReferenceGameObject obj, Transform parent, bool instantiateInWorldSpace, Action<bool, AsyncOperationHandle<GameObject>> OnCompleted)
+        public async void InstantiateAsync<T>(AssetReference obj, Transform parent = null, bool instantiateInWorldSpace = false, Action<bool, AsyncOperationHandle<GameObject>> OnCompleted = null) where T : UnityEngine.Object
         {
 
             if (obj.RuntimeKeyIsValid())
@@ -60,7 +60,7 @@ namespace Naren_Dev
             OnCompleted.Invoke(false, default);
 
         }
-        public void Instantiate<T>(string key, Transform parent, bool instantiateInWorldSpace, Action OnCompleted) where T : AssetReference
+        public void InstantiateAsync<T>(string key, Transform parent = null, bool instantiateInWorldSpace = false, Action<AsyncOperationHandle> OnCompleted = null) where T : UnityEngine.Object
         {
             AsyncOperationHandle operationHanlde = Addressables.LoadResourceLocationsAsync(key);
             if (operationHanlde.Status != AsyncOperationStatus.Succeeded)
@@ -69,7 +69,7 @@ namespace Naren_Dev
             {
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    OnCompleted?.Invoke();
+                    OnCompleted?.Invoke(handle);
                 }
             };
         }
