@@ -20,6 +20,7 @@ namespace Naren_Dev
 
         public static int unlockGoldenProgressBarAtLevel = 16;
         public static PlayerState playerState = PlayerState.Alive;
+        //public static GameState gameState;
         public static void UpdateCurrentSelectedLevelIndex(int levelIndex)
         {
             CurrentSelectedLevelIndex = levelIndex;

@@ -10,8 +10,8 @@ namespace Naren_Dev
     public class EnemyBehaviour : MonoBehaviour, IInitializer
     {
 
-        private bool m_isMovingRight;
         public EnemyState enemyState = EnemyState.Alive;
+        [SerializeField] private bool m_isMovingRight;
         [SerializeField] private bool isPatrollingMob = false;
         [SerializeField] private float m_patrollingSpeed = 10f;
         [SerializeField] private SpriteRenderer m_spriteRenderer;
@@ -37,7 +37,6 @@ namespace Naren_Dev
                 m_spriteRenderer = GetComponent<SpriteRenderer>();
             if (m_sofSpotRenderer == null && isPatrollingMob)
                 m_sofSpotRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-            m_isMovingRight = true;
         }
         private void DoPatrolling()
         {

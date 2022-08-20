@@ -67,8 +67,13 @@ namespace Naren_Dev
         }
         private void Update()
         {
-            if (GlobalVariables.playerState == PlayerState.Dead) return;
-            _CheckSurroundings();
+            switch (GameManager.s_GameState)
+            {
+                case GameState.GamePlay:
+                    if (GlobalVariables.playerState == PlayerState.Dead) return;
+                    _CheckSurroundings();
+                    break;
+            }
 #if TESTING
             if (Input.GetKeyDown(KeyCode.P))
                 SetupAndPlayPlayerDeathEffect();
@@ -76,19 +81,10 @@ namespace Naren_Dev
                 SetupAndShowPlayerRespawnEffect();
 #endif
         }
-
-        //private void LateUpdate()
-        //{
-        //    if (GlobalVariables.playerState == PlayerState.Dead) return;
-        //   _CalculateBounds();
-        //}
-
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(m_groundCheck.position, gcBoxSize);
-            //  Gizmos.DrawWireSphere(m_playerCheck.position, gcRadius);
-
             Gizmos.DrawWireCube(m_playerCheck.position, m_boxSize);
         }
         #endregion Unity Methods
@@ -97,11 +93,11 @@ namespace Naren_Dev
 
         public void Init()
         {
-            //if (m_playerParent == null) m_playerParent = transform.parent;
-            if (m_playerParticleSystem == null) TryGetComponent(out m_playerParticleSystem);// m_playerParticleSystem = GetComponentInChildren<ParticleSystem>();
-
+            if (m_playerParticleSystem == null) TryGetComponent(out m_playerParticleSystem);
             if (spriteRenderer == null) TryGetComponent(out spriteRenderer);
+            UpdatePlayerState(PlayerState.Alive);
         }
+
         private void UpdatePlayerState(PlayerState state)
         {
             if (GlobalVariables.playerState != state)
@@ -173,9 +169,6 @@ namespace Naren_Dev
         }
         private void _CheckSurroundings()
         {
-            //isGrounded = Physics2D.CircleCast(m_groundCheck.position, gcRadius, -transform.up, m_checkDistance, layerMask);
-            // hit = Physics2D.CircleCast(m_playerCheck.position, gcRadius, transform.up, m_groundCheckDistance);
-
             isGrounded = Physics2D.BoxCast(m_groundCheck.position, gcBoxSize, 0f, -transform.up, m_checkDistance, layerMask);
             hit = Physics2D.BoxCast(m_playerCheck.position, m_boxSize, 0f, transform.up, m_checkDistance);
             if (hit)
@@ -204,7 +197,7 @@ namespace Naren_Dev
         public void Callback_On_Player_Dead(object args)
         {
             PlayerState state = (PlayerState)args;
-           // m_playerRb.velocity = Vector2.zero;
+            // m_playerRb.velocity = Vector2.zero;
             UpdatePlayerState(state);
         }
         private void Callback_On_Player_Respawned(object args)

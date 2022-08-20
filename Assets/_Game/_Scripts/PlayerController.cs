@@ -68,24 +68,22 @@ namespace Naren_Dev
         {
             if (GlobalVariables.playerState == PlayerState.Dead)
             {
-                m_inputAxis = 0f;
-                m_playerRb.velocity = Vector2.zero;
+                HaultPlayer();
                 return;
             }
-
-
-            GetInput();
-
-            GetAndSetColorState();
-            ApplyJump();
-
-            //}
-            //else
-            //    HaultPlayer();
-            VelocityController();
-            SetAnimationIds();
-
-
+            switch (GameManager.s_GameState)
+            {
+                case GameState.GamePlay:
+                    GetInput();
+                    GetAndSetColorState();
+                    ApplyJump();
+                    VelocityController();
+                    SetAnimationIds();
+                    break;
+                case GameState.CutScene:
+                    HaultPlayer();
+                    break;
+            }
         }
 
 
@@ -223,6 +221,7 @@ namespace Naren_Dev
         {
             m_playerRb.velocity = Vector2.zero;
             m_inputAxis = 0f;
+            SetAnimationIds();
         }
 
 

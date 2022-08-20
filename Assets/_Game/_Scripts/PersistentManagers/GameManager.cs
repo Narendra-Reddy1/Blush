@@ -6,7 +6,7 @@ namespace Naren_Dev
     public class GameManager : MonoBehaviour, IInitializer
     {
         public static GameManager instance { get; private set; }
-        private GameState gameState;
+        private static GameState m_gameState;
 
         [Range(0.1f, 5.0f)]
         [SerializeField] private float m_respawnDelay = 0.5f;
@@ -18,13 +18,14 @@ namespace Naren_Dev
         [SerializeField] private List<Material> m_gradientMaterials;
         private float m_intensity = 0.1f;
 
-        public GameState GameState => gameState;
+        public static GameState s_GameState => m_gameState;
         #region Unity Methods
 
         private void Awake()
         {
             instance = this;
             Init();
+            _UpdateGameState(GameState.GamePlay);
             //  SetScreenBounds();
         }
         private void Start()
@@ -34,41 +35,30 @@ namespace Naren_Dev
 
         private void OnEnable()
         {
+            GlobalEventHandler.AddListener(EventID.EVENT_ON_GAMESTATE_CHANGED, Callback_On_GameState_Changed);
             GlobalEventHandler.AddListener(EventID.EVENT_ON_PLAYER_DEAD, Callback_On_Player_Dead);
         }
         private void OnDisable()
         {
+            GlobalEventHandler.RemoveListener(EventID.EVENT_ON_GAMESTATE_CHANGED, Callback_On_GameState_Changed);
             GlobalEventHandler.RemoveListener(EventID.EVENT_ON_PLAYER_DEAD, Callback_On_Player_Dead);
         }
 
         #endregion Unity Methods
-        //private void Update()
-        //{
-        //   // SetScreenBounds();
-        //    //if (!InputManager.instance.hasControlAcces)
-        //    //    ApplyColorsToLevel();
-
-        //}
-
-
         public void Init()
         {
-            // if (m_camera == null) m_camera = Camera.main;
-            /* if (enemyDeathEffect == null) { Resources.Load("Assets/_Game/Prefabs/Effects/Death Effect.prefab"); }
-             if (wheelSelectionHighlight == null)
-                 Resources.Load("Assets/_Game/Prefabs/Wheel Sec_Highlight.prefab");*/
-            m_killedEnemiesInTheLevel = new List<EnemyBehaviour>();
 
+            m_killedEnemiesInTheLevel = new List<EnemyBehaviour>();
             foreach (Material mat in m_gradientMaterials)
             {
                 mat.SetColor("_Color1", Color.HSVToRGB(0, 0, 12f));
                 mat.SetColor("_Color2", Color.HSVToRGB(0, 0, 71f));
                 mat.SetFloat("_Intensity", .001f);
             }
-
         }
-
-
+        //private void _TriggerCutSceneStarted()
+        //{
+        //}
         private void ApplyColorsToLevel()
         {
 
@@ -125,8 +115,18 @@ namespace Naren_Dev
         /// <returns></returns>
         private void _UpdateGameState(GameState state)
         {
-            if (gameState == state) return;
-            gameState = state;
+            if (m_gameState == state) return;
+            m_gameState = state;
+            switch (state)
+            {
+                case GameState.GamePlay:
+                    GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_CUTSCENE_ENDED);
+                    break;
+                case GameState.CutScene:
+                    GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_CUTSCENE_STARTED);
+                    break;
+            }
+            SovereignUtils.Log($"GameState Update.. Current GameState: {m_gameState}");
         }
         /// <summary>
         /// This Methods gives us the information about the state of the game. <br></br>
@@ -136,7 +136,7 @@ namespace Naren_Dev
         /// 4.CutScene<br></br>
         /// </summary>
         /// <returns></returns>
-        public GameState GetGameState() => gameState;
+        public static GameState GetGameState() => m_gameState;
 
         /// <summary>
         /// Respawns Player after a defined delay of seconds at latest checkpoint if exists.<br></br>
@@ -159,6 +159,11 @@ namespace Naren_Dev
             RespawnPlayer();
         }
 
+        private void Callback_On_GameState_Changed(object args)
+        {
+            GameState state = (GameState)args;
+            _UpdateGameState(state);
+        }
         #endregion Callbacks
 
     }

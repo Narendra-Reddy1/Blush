@@ -23,9 +23,18 @@ namespace Naren_Dev
         private void Update()
         {
             _MovePlatform();
-
         }
 
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            if (other.collider == null) return;
+            other.transform.parent = transform;
+        }
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            if (other.collider == null) return;
+            other.transform.parent = null;
+        }
 
         private void OnDrawGizmos()
         {
@@ -57,18 +66,6 @@ namespace Naren_Dev
                     m_isMovingRight = true;
             }
         }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.collider == null) return;
-            other.transform.parent = transform;
-        }
-        private void OnCollisionExit2D(Collision2D other)
-        {
-            if (other.collider == null) return;
-            other.transform.parent = null; ;
-        }
-
         #endregion
 
 

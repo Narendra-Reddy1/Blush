@@ -10,7 +10,7 @@ namespace Naren_Dev
 {
     public static class SovereignUtils
     {
-      
+
         public static string ShortenString(string input, int length)
         {
             return (input.Length < length) ? input : input.Substring(0, length);
@@ -215,8 +215,19 @@ namespace Naren_Dev
             var attr = (EnumMemberAttribute)field.GetCustomAttributes(typeof(EnumMemberAttribute), false).SingleOrDefault();
             return attr.Value;
         }
-
-
+        public delegate void callback(UnityEngine.Object arg1, UnityEngine.Object arg2);
+        public async static void DelayedCallback(callback callback, float delay = 1f, UnityEngine.Object t1 = null, UnityEngine.Object t2 = null)
+        {
+            int timer = (int)delay * 1000;
+            await System.Threading.Tasks.Task.Delay(timer);
+            callback?.Invoke(t1, t2);
+        }
+        //public async static void DelayedCallback(Action<object> action, float delay = 1f)
+        //{
+        //    int timer = (int)delay * 1000;
+        //    await System.Threading.Tasks.Task.Delay(timer);
+        //    action?.Invoke();
+        //}
 
     }
 }

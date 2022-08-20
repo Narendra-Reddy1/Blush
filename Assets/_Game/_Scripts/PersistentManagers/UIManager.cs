@@ -12,6 +12,7 @@ namespace Naren_Dev
         public static UIManager instance { get; private set; }
         [SerializeField] private AddressablesHelper m_addressablesHelper;
         [SerializeField] private UnityEngine.AddressableAssets.AssetReference m_unlockColorPiece;
+        [SerializeField] private Image m_backgroundOverlay;
         [SerializeField] private Canvas m_staticCanvas;
         [SerializeField] private Canvas m_dynamicCanvas;
 
@@ -35,6 +36,17 @@ namespace Naren_Dev
             /*playerA_ColorSection = new List<RectTransform>();
             playerB_ColorSection = new List<RectTransform>();*/
         }
+        private void OnEnable()
+        {
+            GlobalEventHandler.AddListener(EventID.EVENT_ON_CUTSCENE_STARTED, Callback_On_CutScene_Started);
+            GlobalEventHandler.AddListener(EventID.EVENT_ON_CUTSCENE_ENDED, Callback_On_CutScene_Ended);
+        }
+        private void OnDisable()
+        {
+            GlobalEventHandler.RemoveListener(EventID.EVENT_ON_CUTSCENE_STARTED, Callback_On_CutScene_Started);
+            GlobalEventHandler.RemoveListener(EventID.EVENT_ON_CUTSCENE_ENDED, Callback_On_CutScene_Ended);
+
+        }
 
         private void Update()
         {
@@ -42,7 +54,14 @@ namespace Naren_Dev
             {
                 ColorSelectionIndicator(InputManager.instance.playerAWheelIndex, playerA_ColorSection);
                 ColorSelectionIndicator(InputManager.instance.playerBWheelIndex, playerB_ColorSection);
-
+            }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                SetupForCutSceneStart();
+            }
+            if (Input.GetKeyUp(KeyCode.L))
+            {
+                SetupForCutSceneEnd();
             }
             //if (Input.GetKeyUp(KeyCode.O))
             //{
@@ -65,7 +84,7 @@ namespace Naren_Dev
         {
             RectTransform colorPiece = default;
             Image colorPieceImage = default;
-            m_addressablesHelper.InstantiateAsync<GameObject>(m_unlockColorPiece, m_dynamicCanvas.transform, OnCompleted: (status, handle) =>
+            m_addressablesHelper.InstantiateAsync<GameObject>(m_unlockColorPiece, m_staticCanvas.transform, OnCompleted: (status, handle) =>
             {
                 if (status)
                 {
@@ -75,17 +94,22 @@ namespace Naren_Dev
                     {
                         case ColorID.Color_One:
                             colorPieceImage.color = m_playerBColorEquipables.portalColor_1;
+                            PlayerResourcesManager.Buy(ResourceID.FIRST_COLOR_ID);
                             break;
                         case ColorID.Color_Two:
                             colorPieceImage.color = m_playerBColorEquipables.portalColor_2;
+                            PlayerResourcesManager.Buy(ResourceID.SECOND_COLOR_ID);
                             break;
                         case ColorID.Color_Three:
                             colorPieceImage.color = m_playerBColorEquipables.portalColor_3;
+                            PlayerResourcesManager.Buy(ResourceID.THIRD_COLOR_ID);
                             break;
                         default:
                             SovereignUtils.Log($"Invalid ColorID: {colorID}");
                             break;
                     }
+                    PlayerDataManager.instance.SaveData();
+                    StartCoroutine(DelayedCallback((int)colorID + 1, false, 3f));
 
                     //colorPiece.anchorMin = playerB_ColorSection[(int)colorID].anchorMin;
                     //colorPiece.anchorMax = playerB_ColorSection[(int)colorID].anchorMax;
@@ -107,6 +131,13 @@ namespace Naren_Dev
                 }
             });
 
+        }
+
+
+        private IEnumerator DelayedCallback(int colorID, bool isPlayerA, float delay = 1f)
+        {
+            yield return new WaitForSeconds(delay);
+            ShowUnlockColorEffect(colorID, isPlayerA);
         }
         public void ShowUnlockColorEffect(int colorId, bool playerA)
         {
@@ -158,6 +189,17 @@ namespace Naren_Dev
             rect.localScale = size;
         }
 
+        private void SetupForCutSceneStart()
+        {
+            m_dynamicCanvas.enabled = false;
+            m_backgroundOverlay.DOFade(0.85f, 0.75f);
+        }
+        private void SetupForCutSceneEnd()
+        {
+
+            m_dynamicCanvas.enabled = true;
+            m_backgroundOverlay.DOFade(0f, 0.75f);
+        }
         /*
                 private void PlayerBColorSelectionIndicator()
                 {
@@ -183,7 +225,17 @@ namespace Naren_Dev
                         playerB_ColorSection[2].localScale = new Vector3(2.5f, 2.5f, 2.5f);
                 }*/
 
+        #region Callbacks
 
+        public void Callback_On_CutScene_Started(object args)
+        {
+            SetupForCutSceneStart();
+        }
+        public void Callback_On_CutScene_Ended(object args)
+        {
+            SetupForCutSceneEnd();
+        }
+        #endregion
 
     }
 }
