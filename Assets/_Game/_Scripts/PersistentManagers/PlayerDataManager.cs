@@ -40,9 +40,11 @@ namespace Naren_Dev
         {
             if (SessionTracker.SessionNumber == 1)
             {
+
+                SovereignUtils.Log($"Added First Start Data: ");
                 //First time game is being opened
                 m_playerData = new PlayerData();
-                //_AddFirstStartData();
+                _AddFirstStartData();
             }
             else
             {
@@ -92,8 +94,7 @@ namespace Naren_Dev
             {
                 Debug.Log(" Error with Loading..");
                 m_playerData = new PlayerData();
-                //_AddDefaultData();
-                //_AddFirstStartData();
+                _AddFirstStartData();
                 SaveData();
                 return;
             }
@@ -116,37 +117,15 @@ namespace Naren_Dev
 
 
 
-        //private void _AddFirstStartData()
-        //{
-        //    if (PlayerResourceManager.Instance == null)
-        //    {
-        //        DeftouchUtils.LogWarning("Store Manager not found");
-        //        Debug.Break(); // IF THIS BREAKS, FIGURE OUT A SOLUTION ON PRIORITY
-        //    }
-        //    PlayerResourceManager.Instance.InitializeStoreItems();
-        //    PlayerResourceManager.Give(PlayerResourceManager.COINS_ITEM_ID, DeftouchConfig.DEFAULT_COIN_BALANCE);
-        //    PlayerResourceManager.UpdateToPlayerData(PlayerResourceManager.COINS_ITEM_ID);
-        //    PlayerResourceManager.Give(PlayerResourceManager.BUILD_CURRENCY_ITEM_ID, DeftouchConfig.DEFAULT_BUILD_CURRENCY_BALANCE);
-        //    PlayerResourceManager.UpdateToPlayerData(PlayerResourceManager.BUILD_CURRENCY_ITEM_ID);
-
-        //    PlayerResourceManager.Give(PlayerResourceManager.SHUFFLE_POWERUP_ITEM_ID, DeftouchConfig.DEFAULT_SHUFFLE_POWERUP_BALANCE);
-        //    PlayerResourceManager.UpdateToPlayerData(PlayerResourceManager.SHUFFLE_POWERUP_ITEM_ID);
-
-        //    PlayerResourceManager.Give(PlayerResourceManager.UNDO_POWERUP_ITEM_ID, DeftouchConfig.DEFAULT_UNDO_POWERUP_BALANCE);
-        //    PlayerResourceManager.UpdateToPlayerData(PlayerResourceManager.UNDO_POWERUP_ITEM_ID);
-
-        //    PlayerResourceManager.Give(PlayerResourceManager.RETUR3_POWERUP_ITEM_ID, DeftouchConfig.DEFAULT_RETURN3_POWERUP_BALANCE);
-        //    PlayerResourceManager.UpdateToPlayerData(PlayerResourceManager.RETUR3_POWERUP_ITEM_ID);
-
-        //    DeftouchAnalyticsCurrencyTracker.pInstance.UpdateCoins("welcome_bonus", DeftouchConfig.DEFAULT_COIN_BALANCE, false);
-        //    DeftouchAnalyticsCurrencyTracker.pInstance.UpdateBuildCurrency("welcome_bonus", DeftouchConfig.DEFAULT_BUILD_CURRENCY_BALANCE, false);
-        //    DeftouchAnalyticsCurrencyTracker.pInstance.UpdatePowerups("welcome_bonus", PowerUpType.Shuffle,
-        //        DeftouchConfig.DEFAULT_SHUFFLE_POWERUP_BALANCE, false);
-        //    DeftouchAnalyticsCurrencyTracker.pInstance.UpdatePowerups("welcome_bonus", PowerUpType.Undo,
-        //        DeftouchConfig.DEFAULT_UNDO_POWERUP_BALANCE, false);
-        //    DeftouchAnalyticsCurrencyTracker.pInstance.UpdatePowerups("welcome_bonus", PowerUpType.Return3,
-        //        DeftouchConfig.DEFAULT_RETURN3_POWERUP_BALANCE, false);
-        //}
+        private void _AddFirstStartData()
+        {
+            if (PlayerResourcesManager.Instance == null)
+            {
+                SovereignUtils.LogWarning("Store Manager not found");
+                Debug.Break(); // IF THIS BREAKS, FIGURE OUT A SOLUTION ON PRIORITY
+            }
+            PlayerResourcesManager.Instance.InitializeStoreItems();
+        }
 
         /// <summary>
         /// This method is used to set default values when player first time playing the game  or 

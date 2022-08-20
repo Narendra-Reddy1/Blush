@@ -7,9 +7,17 @@ namespace Naren_Dev
     public enum ResourceID
     {
         //Currency
+        KEDOS_ID,
+
+        //Equippable i.e Colors
+        FIRST_COLOR_ID,
+        SECOND_COLOR_ID,
+        THIRD_COLOR_ID
+    }
+    public enum CurrencyType
+    {
         KEDOS
     }
-
     [System.Serializable]
     public class PlayerResourcesManager : MonoBehaviour
     {
@@ -18,6 +26,20 @@ namespace Naren_Dev
 
         bool isStoreManagerInitialized = false;
 
+        public static CurrencyType currencyType = CurrencyType.KEDOS;
+        public static ResourceID KEDOS_ITEM_ID = ResourceID.KEDOS_ID;
+
+
+        [SerializeField]
+        public static Dictionary<ResourceID, VirtualItem> StoreInventory;
+
+        [Header("Currencies")]
+        public Currency kedos;
+
+        [Header("Equippables")]
+        public Equipable firstColor;
+        public Equipable secondColor;
+        public Equipable thirdColor;
 
         private void Awake()
         {
@@ -34,14 +56,17 @@ namespace Naren_Dev
             InitializeStoreItems();
         }
 
-        public static string KEDOS_ITEM_ID = "COIN_CURRENCY";
 
+        private void Update()
+        {
+            //if (Input.GetKeyUp(KeyCode.M))
+            //{
+            //    SovereignUtils.Log($"firstColor balance: {GetBalance(ResourceID.FIRST_COLOR_ID)}");
+            //    Buy(ResourceID.FIRST_COLOR_ID);
+            //    SovereignUtils.Log($"After Purchase firstColor balance: {GetBalance(ResourceID.FIRST_COLOR_ID)} ");
+            //}
+        }
 
-        [SerializeField]
-        public static Dictionary<ResourceID, VirtualItem> StoreInventory;
-
-        [Header("Currencies")]
-        public Currency kedos;
 
         /// <summary>
         /// Initializes the store items.
@@ -56,10 +81,16 @@ namespace Naren_Dev
             isStoreManagerInitialized = true;
 
             //Currency define - Start everything with zero balance..aditional items can be given later
-            kedos = new Currency(ResourceID.KEDOS);
+            kedos = new Currency(ResourceID.KEDOS_ID);
+            firstColor = new Equipable(ResourceID.FIRST_COLOR_ID, false, CurrencyType.KEDOS, 0);
+            secondColor = new Equipable(ResourceID.SECOND_COLOR_ID, false, CurrencyType.KEDOS, 0);
+            thirdColor = new Equipable(ResourceID.THIRD_COLOR_ID, false, CurrencyType.KEDOS, 0);
 
             //Add the item to the inventory.
             addItemToStoreInventory(kedos);
+            addItemToStoreInventory(firstColor);
+            addItemToStoreInventory(secondColor);
+            addItemToStoreInventory(thirdColor);
         }
 
         void addItemToStoreInventory(VirtualItem item)
@@ -71,13 +102,14 @@ namespace Naren_Dev
         public void LoadDataForInspector()
         {
             //Currency
-            kedos = (Currency)StoreInventory[ResourceID.KEDOS];
+            kedos = (Currency)StoreInventory[ResourceID.KEDOS_ID];
         }
 
         /// <summary>
-        /// Gets the item balance -
-        /// Returns Balance for Currency, Consumable, Equipable
-        /// Returns Current Level for Upgradable
+        /// This method return available balance for the given ItemID:<br></br>
+        /// Currency,<br></br>
+        /// Consumable, <br></br>
+        /// Equipable<br></br>
         /// </summary>
         /// <returns>The item balance.</returns>
         public static int GetBalance(ResourceID itemId)
@@ -87,9 +119,27 @@ namespace Naren_Dev
 
                 case VirtualItemType.CURRENCY:
                     return ((Currency)StoreInventory[itemId]).GetBalance();
+                case VirtualItemType.EQUIPABLE:
+                    return ((Equipable)StoreInventory[itemId]).GetBalance();
                 default:
-                    Debug.Log("Invalid Item ID");
+                    SovereignUtils.Log($"Invalid Item ID {itemId}");
                     return -1;
+            }
+        }
+        /// <summary>
+        /// This method returns the available balance for the given currency type.
+        /// </summary>
+        /// <param name="currency"></param>
+        /// <returns></returns>
+        public static int GetBalance(CurrencyType currency)
+        {
+            switch (currency)
+            {
+                case CurrencyType.KEDOS:
+                    return ((Currency)StoreInventory[ResourceID.KEDOS_ID]).GetBalance();
+                default:
+                    SovereignUtils.Log($"Invalid Currency type {currency}");
+                    return 0;
             }
         }
 
@@ -126,7 +176,7 @@ namespace Naren_Dev
         /// <returns>Coin Balance</returns>
         public int GetKedosBalance()
         {
-            return GetBalance(ResourceID.KEDOS);
+            return GetBalance(ResourceID.KEDOS_ID);
         }
 
 
@@ -134,6 +184,7 @@ namespace Naren_Dev
         /// This method gives the build currency balance .
         /// </summary>
         /// <returns>Build Currency Balance</returns>
+
         //public int GetBuildCurrencyBalance() => GetBalance(BUILD_CURRENCY_ITEM_ID);
 
 
@@ -145,7 +196,7 @@ namespace Naren_Dev
         /// <param name="quantity"></param>
         public void AddKedos(int quantity)
         {
-            Give(ResourceID.KEDOS, quantity);
+            Give(ResourceID.KEDOS_ID, quantity);
             PlayerDataManager.instance.SaveData();
         }
 
@@ -156,7 +207,7 @@ namespace Naren_Dev
         /// <param name="quantity"></param>
         public void DeductKedos(int quantity)
         {
-            Take(ResourceID.KEDOS, quantity);
+            Take(ResourceID.KEDOS_ID, quantity);
             PlayerDataManager.instance.SaveData();
         }
 
@@ -239,6 +290,8 @@ namespace Naren_Dev
             {
                 case VirtualItemType.CURRENCY:
                     return ((Currency)StoreInventory[itemId]).Buy();
+                case VirtualItemType.EQUIPABLE:
+                    return ((Equipable)StoreInventory[itemId]).Buy();
                 default:
                     SovereignUtils.LogError($"Invalid Item ID: {itemId} PlayerResourcesManager");
                     return false;

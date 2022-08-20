@@ -341,6 +341,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_addressableHelper: {fileID: 11400000, guid: 44f73d8e1858d874c889a179b170c578, type: 2}
+  enemyDeathEffect:
+    m_AssetGUID: 8035315d4426d584e96d13caa172cbb9
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   m_enemyBehaviour: {fileID: 3738237723809812425}
 --- !u!70 &3738237723819663303
 CapsuleCollider2D:

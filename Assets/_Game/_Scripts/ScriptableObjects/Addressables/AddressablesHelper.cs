@@ -25,9 +25,9 @@ namespace Naren_Dev
                     OnCompleted?.Invoke(handle);
             };
         }
-        public async void LoadAssetAsync<T>(string name, Action<bool, AsyncOperationHandle<T>> OnCompleted) where T : class
+        public async void LoadAssetAsync<T>(AssetReference assetReference, Action<bool, AsyncOperationHandle<T>> OnCompleted) where T : class
         {
-            var async = Addressables.LoadAssetAsync<T>(name);
+            var async = Addressables.LoadAssetAsync<T>(assetReference);
             await async.Task;
             if (async.Status == AsyncOperationStatus.Succeeded)
             {

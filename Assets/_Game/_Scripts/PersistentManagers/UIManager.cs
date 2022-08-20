@@ -10,13 +10,17 @@ namespace Naren_Dev
     {
 
         public static UIManager instance { get; private set; }
-
+        [SerializeField] private AddressablesHelper m_addressablesHelper;
+        [SerializeField] private UnityEngine.AddressableAssets.AssetReference m_unlockColorPiece;
+        [SerializeField] private Canvas m_staticCanvas;
+        [SerializeField] private Canvas m_dynamicCanvas;
 
         [Header("Player A")]
         public List<RectTransform> playerA_ColorSection;
 
         [Header("Player B")]
         public List<RectTransform> playerB_ColorSection;
+        [SerializeField] private PortalColorEquipables m_playerBColorEquipables;
         [SerializeField] private Vector3 m_selectionSize = new Vector3(3f, 3f, 3f);
         [SerializeField] private Vector3 m_defaultSize = new Vector3(2.5f, 2.5f, 2.5f);
 
@@ -40,12 +44,71 @@ namespace Naren_Dev
                 ColorSelectionIndicator(InputManager.instance.playerBWheelIndex, playerB_ColorSection);
 
             }
+            //if (Input.GetKeyUp(KeyCode.O))
+            //{
+            //    ShowUnlockColorAnimation(ColorID.Color_One);
+            //}
+            //if (Input.GetKeyUp(KeyCode.I))
+            //{
+            //    ShowUnlockColorAnimation(ColorID.Color_Two);
+            //}
+            //if (Input.GetKeyUp(KeyCode.U))
+            //{
+            //    ShowUnlockColorAnimation(ColorID.Color_Three);
+            //}
+
             //  PlayerBColorSelectionIndicator();
 
             // Debug.Log(InputManager.instance.playerAWheelIndex);
         }
+        public void ShowUnlockColorAnimation(ColorID colorID)
+        {
+            RectTransform colorPiece = default;
+            Image colorPieceImage = default;
+            m_addressablesHelper.InstantiateAsync<GameObject>(m_unlockColorPiece, m_dynamicCanvas.transform, OnCompleted: (status, handle) =>
+            {
+                if (status)
+                {
+                    colorPiece = handle.Result.GetComponent<RectTransform>();
+                    colorPieceImage = colorPiece.transform.GetChild(1).GetComponent<Image>();
+                    switch (colorID)
+                    {
+                        case ColorID.Color_One:
+                            colorPieceImage.color = m_playerBColorEquipables.portalColor_1;
+                            break;
+                        case ColorID.Color_Two:
+                            colorPieceImage.color = m_playerBColorEquipables.portalColor_2;
+                            break;
+                        case ColorID.Color_Three:
+                            colorPieceImage.color = m_playerBColorEquipables.portalColor_3;
+                            break;
+                        default:
+                            SovereignUtils.Log($"Invalid ColorID: {colorID}");
+                            break;
+                    }
 
-        public void UnlockColor(int colorId, bool playerA)
+                    //colorPiece.anchorMin = playerB_ColorSection[(int)colorID].anchorMin;
+                    //colorPiece.anchorMax = playerB_ColorSection[(int)colorID].anchorMax;
+                    //colorPiece.DOPunchScale(new Vector2(0.95f, .95f), 1f).OnComplete(() =>
+                    //{
+                    //    //colorPiece.DOAnchorPosY(-25, 2f).SetSpeedBased();
+                    //    //colorPiece.DOAnchorPosY(-25, 2f).SetSpeedBased();
+                    //    if ((int)(colorID + 1) < playerB_ColorSection.Count)
+                    //        colorPiece.DOMove(playerB_ColorSection[(int)colorID].localPosition, 2f).OnComplete(() =>
+                    //        {
+                    //            colorPiece.DORotateQuaternion(playerB_ColorSection[(int)colorID].localRotation, 0.75f).OnComplete(() =>
+                    //            {
+                    //                ShowUnlockColorEffect((int)(colorID + 1), false);
+                    //                colorPieceImage.DOFade(0, 0.1f);
+                    //            });
+                    //        });
+                    //});
+
+                }
+            });
+
+        }
+        public void ShowUnlockColorEffect(int colorId, bool playerA)
         {
             if (playerA)
             {

@@ -33,6 +33,10 @@ MonoBehaviour:
     m_Address: EnemyDeathEffect
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7bac224d9b409f342ad620ff5e5de6a1
+    m_Address: Color_Unlocked_Piece
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 110e4a3012066b64abea82fbc8460af2, type: 2}
   m_SchemaSet:

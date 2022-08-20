@@ -10,20 +10,6 @@ namespace Naren_Dev
         MusicStatus = 0,
         SFXStatus = 1
     }
-    public enum ControlScheme
-    {
-        Touch,
-        JoyStick,
-        Keyboard
-
-    }
-
-    public enum GameMode
-    {
-        SinglePlayer,
-        MultiPlayer
-    }
-
     public enum AudioId
     {
         GamePlayBGM = 0,
@@ -35,14 +21,35 @@ namespace Naren_Dev
         //UI
         UIButtonClickSFX = 6,
         UIButtonHoverSFX = 7,
+    }
+
+    public enum ControlScheme
+    {
+        Touch,
+        JoyStick,
+        Keyboard
 
     }
+
+    public enum ColorID
+    {
+        Color_One,
+        Color_Two,
+        Color_Three
+    }
+
+    public enum GameMode
+    {
+        SinglePlayer,
+        MultiPlayer
+    }
+
     public enum GameState
     {
-        MainMenu = 0,
-        Started = 1,
-        Completed = 2,
-        CutScene = 3
+        Started,
+        Completed,
+        GamePlay,
+        CutScene
     }
     public enum PlayerState
     {

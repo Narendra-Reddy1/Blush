@@ -565,6 +565,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_B
       objectReference: {fileID: 0}
+    - target: {fileID: 6064786055077110802, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
+      propertyPath: isPlayerA
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064786055077110802, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
+      propertyPath: isPlayerB
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064786055077110802, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
+      propertyPath: m_portalColorEquipables
+      value: 
+      objectReference: {fileID: 11400000, guid: 5a1a4cdf780b8d84e8c3706b6b4c49bc, type: 2}
     - target: {fileID: 6064786055077110804, guid: a7dbb451ab595a6468467c9d8209351b, type: 3}
       propertyPath: m_RootOrder
       value: 1

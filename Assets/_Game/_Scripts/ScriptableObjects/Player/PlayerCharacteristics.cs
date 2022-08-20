@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Naren_Dev
 {
-    [CreateAssetMenu(fileName = "newPlayerCharacteristics", menuName = "ScriptableObjects/Player")]
+    [CreateAssetMenu(fileName = "newPlayerCharacteristics", menuName = "ScriptableObjects/Player/Characteristics")]
     public class PlayerCharacteristics : BaseScriptableObject
     {
         public float m_moveSpeed = 25f;
@@ -25,6 +25,5 @@ namespace Naren_Dev
         public Vector2 gcBoxSize = new Vector2(0.1f, 0.1f);
 
         public AudioCueEventChannelSO m_audioEventChannel;
-
     }
 }

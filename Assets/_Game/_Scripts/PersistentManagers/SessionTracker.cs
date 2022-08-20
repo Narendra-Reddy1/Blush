@@ -67,7 +67,7 @@ namespace Naren_Dev
             //DeftEventHandler.AddListener(EventID.EVENT_ON_GAME_MAXIMISED, HandleGameMaximised);
             //DeftEventHandler.AddListener(EventID.EVENT_ON_GAME_MAXIMISED, HandleGameMinimised);
           //  StartCoroutine(WaitAndUpdate());
-            Debug.Log("Current Session Number - " + SessionNumber);
+            Debug.Log("Current Session Number: " + SessionNumber);
             //PlayerPrefs.DeleteKey("SessionNumber");
         }
 

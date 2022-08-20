@@ -49,3 +49,27 @@ MonoBehaviour:
     balance: 0
     collectedBalance: 0
     maxBalance: 0
+  firstColor:
+    itemId: 0
+    virtualItemType: 0
+    isPurchased: 0
+    isEquiped: 0
+    purchasePrice: 0
+    purchaseCurrency: 0
+    equipmentCategory: 0
+  secondColor:
+    itemId: 0
+    virtualItemType: 0
+    isPurchased: 0
+    isEquiped: 0
+    purchasePrice: 0
+    purchaseCurrency: 0
+    equipmentCategory: 1
+  thirdColor:
+    itemId: 0
+    virtualItemType: 0
+    isPurchased: 0
+    isEquiped: 0
+    purchasePrice: 0
+    purchaseCurrency: 0
+    equipmentCategory: 1

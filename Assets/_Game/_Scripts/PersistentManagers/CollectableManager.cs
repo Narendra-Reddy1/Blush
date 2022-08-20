@@ -40,7 +40,7 @@ namespace Naren_Dev
         private void On_CollectableCollected(object args)
         {
             m_audioEventChannel.RaiseSFXPlayEvent(AudioId.CollectableSFX, 0.5f);
-            PlayerResourcesManager.Give(ResourceID.KEDOS);
+            PlayerResourcesManager.Give(ResourceID.KEDOS_ID);
         }
 
         #endregion

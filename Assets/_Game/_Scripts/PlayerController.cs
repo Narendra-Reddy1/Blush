@@ -32,9 +32,10 @@ namespace Naren_Dev
 
         [Header("Colors")]
         [Space]
-        [SerializeField] private Color m_portalColor_1;
-        [SerializeField] private Color m_portalColor_2;
-        [SerializeField] private Color m_portalColor_3;
+        [SerializeField] private PortalColorEquipables m_portalColorEquipables;
+        //[SerializeField] private Color m_portalColor_1;
+        //[SerializeField] private Color m_portalColor_2;
+        //[SerializeField] private Color m_portalColor_3;
         [SerializeField] private AudioCueEventChannelSO m_audioEventChannel;
         private float m_inputAxis;
         private bool canJump;
@@ -42,21 +43,14 @@ namespace Naren_Dev
         /* =========ColorWheelProperties======= */
         private Vector2 m_wheelIndexInput;
         private Color m_defaultColor;
-        public enum m_ColorState { Ideal = 0, Color_1 = 1, Color_2 = 2, Color_3 = 3 };
-        private m_ColorState colorState;
+        public enum ColorState { Ideal = 0, Color_1 = 1, Color_2 = 2, Color_3 = 3 };
+        private ColorState m_colorState;
 
         #endregion
 
         #region Properties
 
-        public m_ColorState ColorState
-        {
-            get
-            {
-                return colorState;
-            }
-
-        }
+        public ColorState colorState => m_colorState;
 
         #endregion
 
@@ -248,6 +242,7 @@ namespace Naren_Dev
             if (m_wheelIndexInput.y > 0.5f)
             {
                 m_playerManager.spriteRenderer.color = m_defaultColor;
+                m_colorState = ColorState.Ideal;
                 if (isPlayerA)
                 {
                     SetIgnoreCollisionLayers();
@@ -261,8 +256,10 @@ namespace Naren_Dev
 
             else if (m_wheelIndexInput.y < -0.5f)
             {
-                m_playerManager.spriteRenderer.color = m_portalColor_2;
+                if (PlayerResourcesManager.GetBalance(ResourceID.SECOND_COLOR_ID) <= 0) return;
 
+                m_playerManager.spriteRenderer.color = m_portalColorEquipables.portalColor_2;
+                m_colorState = ColorState.Color_2;
                 if (isPlayerA)
                 {
                     SetIgnoreCollisionLayers(ignoreColor2: true);
@@ -275,8 +272,9 @@ namespace Naren_Dev
 
             else if (m_wheelIndexInput.x > 0.5f)
             {
-                m_playerManager.spriteRenderer.color = m_portalColor_1;
-
+                if (PlayerResourcesManager.GetBalance(ResourceID.FIRST_COLOR_ID) <= 0) return;
+                m_playerManager.spriteRenderer.color = m_portalColorEquipables.portalColor_1;
+                m_colorState = ColorState.Color_1;
                 if (isPlayerA)
                 {
                     SetIgnoreCollisionLayers(ignoreColor1: true);
@@ -285,19 +283,14 @@ namespace Naren_Dev
                 else if (isPlayerB)
                 {
                     SetIgnoreCollisionLayers(ignoreColor1: true);
-
-                    //  Physics2D.IgnoreLayerCollision(8,14, true); //Color_1
-                    //   Physics2D.IgnoreLayerCollision(8,15, false); //Color_2
-                    // Physics2D.IgnoreLayerCollision(8,16, false); //Color_3
                 }
-
-
             }
 
             else if (m_wheelIndexInput.x < -0.5f)
             {
-                m_playerManager.spriteRenderer.color = m_portalColor_3;
-                // print(isPlayerB);
+                if (PlayerResourcesManager.GetBalance(ResourceID.THIRD_COLOR_ID) <= 0) return;
+                m_playerManager.spriteRenderer.color = m_portalColorEquipables.portalColor_3;
+                m_colorState = ColorState.Color_3;
                 if (isPlayerA)
                 {
                     SetIgnoreCollisionLayers(ignoreColor3: true);

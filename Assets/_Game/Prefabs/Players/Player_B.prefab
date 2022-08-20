@@ -503,6 +503,7 @@ MonoBehaviour:
   m_moveSpeed: 7
   m_jumpForce: 33
   m_maxVelocity: 40
+  m_portalColorEquipables: {fileID: 11400000, guid: 5a1a4cdf780b8d84e8c3706b6b4c49bc, type: 2}
   m_portalColor_1: {r: 0.20784315, g: 0.77647066, b: 0.78823537, a: 1}
   m_portalColor_2: {r: 0.58935744, g: 0.1830188, b: 1, a: 0.98039216}
   m_portalColor_3: {r: 0.6509434, g: 0, b: 0.24418385, a: 1}

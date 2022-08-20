@@ -43,6 +43,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d861b8e294b8a64692c36c525eac932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_addressablesHelper: {fileID: 11400000, guid: 44f73d8e1858d874c889a179b170c578, type: 2}
+  m_unlockColorPiece:
+    m_AssetGUID: 7bac224d9b409f342ad620ff5e5de6a1
+    m_SubObjectName: 
+    m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_EditorAssetChanged: 0
+  m_staticCanvas: {fileID: 0}
+  m_dynamicCanvas: {fileID: 0}
   playerA_ColorSection:
   - {fileID: 0}
   - {fileID: 0}
@@ -53,3 +62,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  m_playerBColorEquipables: {fileID: 11400000, guid: 5a1a4cdf780b8d84e8c3706b6b4c49bc, type: 2}
+  m_selectionSize: {x: 3, y: 3, z: 3}
+  m_defaultSize: {x: 2.5, y: 2.5, z: 2.5}

@@ -6,13 +6,16 @@ namespace Naren_Dev
     public class EnemySoftSpot : MonoBehaviour
     {
         [SerializeField] private AddressablesHelper m_addressableHelper = default;
+        [SerializeField]
+        private UnityEngine.AddressableAssets.AssetReference enemyDeathEffect;
         [SerializeField] private EnemyBehaviour m_enemyBehaviour = default;
         private GameObject m_enemyDeathEffect;
         private void Awake()
         {
-            m_addressableHelper.LoadAssetAsync<GameObject>("EnemyDeathEffect", (handle) =>
+            m_addressableHelper.LoadAssetAsync<GameObject>(enemyDeathEffect, (status, handle) =>
             {
-                m_enemyDeathEffect = handle.Result;
+                if (status)
+                    m_enemyDeathEffect = handle.Result;
             }
             );
         }

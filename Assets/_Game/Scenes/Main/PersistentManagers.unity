@@ -693,6 +693,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6148041709363478297, guid: 6314d07f2a0741742832ec22c04cc91b, type: 3}
+      propertyPath: m_staticCanvas
+      value: 
+      objectReference: {fileID: 1306667454}
+    - target: {fileID: 6148041709363478297, guid: 6314d07f2a0741742832ec22c04cc91b, type: 3}
+      propertyPath: m_dynamicCanvas
+      value: 
+      objectReference: {fileID: 165860249}
+    - target: {fileID: 6148041709363478297, guid: 6314d07f2a0741742832ec22c04cc91b, type: 3}
+      propertyPath: m_unlockColorPiece.m_AssetGUID
+      value: 7bac224d9b409f342ad620ff5e5de6a1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6148041709363478297, guid: 6314d07f2a0741742832ec22c04cc91b, type: 3}
       propertyPath: playerA_ColorSection.Array.data[0]
       value: 
       objectReference: {fileID: 1085265334}
@@ -743,7 +755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5905440044296417172, guid: d66a22e5835ff564baed392e791727e6, type: 3}
       propertyPath: m_FillAmount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5905440044296417172, guid: d66a22e5835ff564baed392e791727e6, type: 3}
       propertyPath: m_PreserveAspect
@@ -881,6 +893,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 5905440045304758869, guid: d66a22e5835ff564baed392e791727e6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 18.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5905440045304758869, guid: d66a22e5835ff564baed392e791727e6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -23.8
+      objectReference: {fileID: 0}
     - target: {fileID: 5905440045620403152, guid: d66a22e5835ff564baed392e791727e6, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -888,6 +908,14 @@ PrefabInstance:
     - target: {fileID: 5905440045620403152, guid: d66a22e5835ff564baed392e791727e6, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5905440045620403153, guid: d66a22e5835ff564baed392e791727e6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5905440045620403153, guid: d66a22e5835ff564baed392e791727e6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 15.5
       objectReference: {fileID: 0}
     - target: {fileID: 5905440045828253606, guid: d66a22e5835ff564baed392e791727e6, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -900,6 +928,10 @@ PrefabInstance:
     - target: {fileID: 5905440045993227921, guid: d66a22e5835ff564baed392e791727e6, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5905440045993227923, guid: d66a22e5835ff564baed392e791727e6, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5905440046022852152, guid: d66a22e5835ff564baed392e791727e6, type: 3}
       propertyPath: m_FillAmount
@@ -1202,6 +1234,11 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3881087803549984436, guid: ec536a7718376554185e4a856d5ae230, type: 3}
   m_PrefabInstance: {fileID: 1151064559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &1306667454 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 5905440044331426960, guid: d66a22e5835ff564baed392e791727e6, type: 3}
+  m_PrefabInstance: {fileID: 1085265325}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1392089408
 GameObject:

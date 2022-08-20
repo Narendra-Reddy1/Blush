@@ -101,11 +101,11 @@ namespace Naren_Dev
         }
         public void _OnJumpButtonClicked()
         {
-            pA_canJump = true;
+            pB_canJump = true;
         }
         public void _OnJumpButtonRelease()
         {
-            pA_canJump = false;
+            pB_canJump = false;
         }
 
         private void ReadJumpInput()
@@ -124,8 +124,8 @@ namespace Naren_Dev
         }
         private void _ReadJoystickInput()
         {
-            playerAMoveAxis = new Vector2(m_playerJoystick.Horizontal, 0f);
-            playerAWheelIndex = m_colorWheelJoystick.Direction.normalized;
+            playerBMoveAxis = new Vector2(m_playerJoystick.Horizontal, 0f);
+            playerBWheelIndex = m_colorWheelJoystick.Direction.normalized;
         }
         private void ReadInput()
         {
