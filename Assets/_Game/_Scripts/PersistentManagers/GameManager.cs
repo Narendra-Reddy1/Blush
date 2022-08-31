@@ -1,22 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using Fungus;
 namespace Naren_Dev
 {
     public class GameManager : MonoBehaviour, IInitializer
     {
         public static GameManager instance { get; private set; }
         private static GameState m_gameState;
+        private float m_intensity = 0.1f;
+        private List<EnemyBehaviour> m_killedEnemiesInTheLevel;
+
 
         [Range(0.1f, 5.0f)]
         [SerializeField] private float m_respawnDelay = 0.5f;
-        private List<EnemyBehaviour> m_killedEnemiesInTheLevel;
-        //   public GameObject enemyDeathEffect;
-        public GameObject wheelSelectionHighlight;
         [SerializeField] private AudioCueEventChannelSO m_audioEventChannel;
-        // [SerializeField] private Material m_bgMaterial;
+        [SerializeField] private LevelData m_singlePlayerLevelData;
         [SerializeField] private List<Material> m_gradientMaterials;
-        private float m_intensity = 0.1f;
+        [SerializeField] private Flowchart m_cutSceneChart;
+        private UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
+            currentlyLoadedSceneHandle;
 
         public static GameState s_GameState => m_gameState;
         #region Unity Methods
@@ -35,30 +37,36 @@ namespace Naren_Dev
 
         private void OnEnable()
         {
+            GlobalEventHandler.AddListener(EventID.EVENT_ON_LEVEL_STARTED, Callback_On_New_level_Starte);
+            GlobalEventHandler.AddListener(EventID.EVENT_ON_CUTSCENE_ENDED, Callback_On_CutSceneEnded);
+            GlobalEventHandler.AddListener(EventID.EVENT_ON_PLAYER_RESPAWN, Callback_On_Player_Respawned);
             GlobalEventHandler.AddListener(EventID.EVENT_ON_GAMESTATE_CHANGED, Callback_On_GameState_Changed);
             GlobalEventHandler.AddListener(EventID.EVENT_ON_PLAYER_DEAD, Callback_On_Player_Dead);
         }
         private void OnDisable()
         {
+            GlobalEventHandler.RemoveListener(EventID.EVENT_ON_LEVEL_STARTED, Callback_On_New_level_Starte);
+            GlobalEventHandler.RemoveListener(EventID.EVENT_ON_CUTSCENE_ENDED, Callback_On_CutSceneEnded);
+            GlobalEventHandler.RemoveListener(EventID.EVENT_ON_PLAYER_RESPAWN, Callback_On_Player_Respawned);
             GlobalEventHandler.RemoveListener(EventID.EVENT_ON_GAMESTATE_CHANGED, Callback_On_GameState_Changed);
             GlobalEventHandler.RemoveListener(EventID.EVENT_ON_PLAYER_DEAD, Callback_On_Player_Dead);
         }
 
         #endregion Unity Methods
+
+        #region Custom Methods
+
         public void Init()
         {
 
             m_killedEnemiesInTheLevel = new List<EnemyBehaviour>();
-            foreach (Material mat in m_gradientMaterials)
-            {
-                mat.SetColor("_Color1", Color.HSVToRGB(0, 0, 12f));
-                mat.SetColor("_Color2", Color.HSVToRGB(0, 0, 71f));
-                mat.SetFloat("_Intensity", .001f);
-            }
+            //foreach (Material mat in m_gradientMaterials)
+            //{
+            //    mat.SetColor("_Color1", Color.HSVToRGB(0, 0, 12f));
+            //    mat.SetColor("_Color2", Color.HSVToRGB(0, 0, 71f));
+            //    mat.SetFloat("_Intensity", .001f);
+            //}
         }
-        //private void _TriggerCutSceneStarted()
-        //{
-        //}
         private void ApplyColorsToLevel()
         {
 
@@ -88,12 +96,19 @@ namespace Naren_Dev
         {
 
         }
-
-        //private void OnNewLevelLoaded()
-        //{
-        //    GlobalVariables.STARTING_POINT = GameObject.FindGameObjectWithTag("Start").transform.position;
-        //}
-
+        public void StartNarration(string blockID)
+        {
+            m_cutSceneChart.ExecuteBlock(blockID);
+        }
+        public void TriggerCutSceneEnd(LevelID levelID)
+        {
+            GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_CUTSCENE_ENDED, levelID);
+        }
+        public void RewardPlayer(ColorID colorID)
+        {
+            UIManager.instance.ShowUnlockColorAnimation(colorID);
+            SovereignUtils.Log($"Unlocking Color: {colorID}");
+        }
         public void onNewEnemyKilled(EnemyBehaviour newEnemy)
         {
             if (!m_killedEnemiesInTheLevel.Contains(newEnemy))
@@ -102,6 +117,7 @@ namespace Naren_Dev
         private void _OnNewLevelStarted()
         {
             m_killedEnemiesInTheLevel.Clear();
+            CheckpointSystem.completedCheckPoints.Clear();
         }
 
 
@@ -120,7 +136,6 @@ namespace Naren_Dev
             switch (state)
             {
                 case GameState.GamePlay:
-                    GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_CUTSCENE_ENDED);
                     break;
                 case GameState.CutScene:
                     GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_CUTSCENE_STARTED);
@@ -150,11 +165,46 @@ namespace Naren_Dev
         }
         private void RespawnAllEnemies()
         {
-
+            foreach (EnemyBehaviour enemy in m_killedEnemiesInTheLevel)
+            {
+                enemy.UpdateEnemyState(EnemyState.Alive);
+            }
+        }
+        private async void LoadNextLevel(LevelID levelID)
+        {
+            if (m_singlePlayerLevelData.levelsCollection.Contains(levelID))
+            {
+                currentlyLoadedSceneHandle = m_singlePlayerLevelData.levelsCollection[levelID].LoadSceneAsync(UnityEngine.SceneManagement.LoadSceneMode.Additive, false);
+                await currentlyLoadedSceneHandle.Task;
+                currentlyLoadedSceneHandle.Completed += (handle) =>
+                   {
+                       GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_LEVEL_STARTED);
+                   };
+            }
+        }
+        public void EnableNewlyLoadedLevel()
+        {
+            currentlyLoadedSceneHandle.Result.ActivateAsync();
+            RespawnPlayer();
         }
 
+        #endregion Custom Methods
+
         #region Callbacks
-        public void Callback_On_Player_Dead(object args)
+        private void Callback_On_New_level_Starte(object args)
+        {
+            _OnNewLevelStarted();
+        }
+        private void Callback_On_Player_Respawned(object ags)
+        {
+            RespawnAllEnemies();
+        }
+        private void Callback_On_CutSceneEnded(object args)
+        {
+            LevelID id = (LevelID)args;
+            LoadNextLevel(id);
+        }
+        private void Callback_On_Player_Dead(object args)
         {
             RespawnPlayer();
         }

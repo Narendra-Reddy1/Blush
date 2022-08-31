@@ -15,18 +15,26 @@ namespace Naren_Dev
             m_addressableHelper.LoadAssetAsync<GameObject>(enemyDeathEffect, (status, handle) =>
             {
                 if (status)
+                {
                     m_enemyDeathEffect = handle.Result;
+
+                }
             }
             );
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (m_enemyBehaviour.enemyState == EnemyState.Dead) return;
+            if (m_enemyBehaviour.GetEnemyState() == EnemyState.Dead) return;
             if (collision.CompareTag("Player"))
             {
-                GameObject go = Instantiate(m_enemyDeathEffect, transform.position, Quaternion.identity, null);
+                GameObject go = Instantiate(m_enemyDeathEffect, m_enemyBehaviour.transform.position, Quaternion.identity, null);
                 //go = (GameObject)handle.Result;
                 //  go.transform.position = transform.position;
+                ParticleSystem.MainModule main = go.GetComponent<ParticleSystem>().main;
+                if (m_enemyBehaviour.isInversed)
+                    main.gravityModifier = -15;
+                else
+                    main.gravityModifier = 15;
                 go.GetComponent<ParticleSystem>().Play();
                 m_enemyBehaviour.UpdateEnemyState(EnemyState.Dead);
                 GameManager.instance.onNewEnemyKilled(m_enemyBehaviour);

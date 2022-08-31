@@ -10,7 +10,8 @@ namespace Naren_Dev
     public class EnemyBehaviour : MonoBehaviour, IInitializer
     {
 
-        public EnemyState enemyState = EnemyState.Alive;
+        public bool isInversed;
+        [SerializeField] private EnemyState m_enemyState = EnemyState.Alive;
         [SerializeField] private bool m_isMovingRight;
         [SerializeField] private bool isPatrollingMob = false;
         [SerializeField] private float m_patrollingSpeed = 10f;
@@ -24,7 +25,7 @@ namespace Naren_Dev
         }
         private void Update()
         {
-            if (enemyState == EnemyState.Dead) return;
+            if (m_enemyState == EnemyState.Dead) return;
             if (isPatrollingMob) DoPatrolling();
             else
                 DoHopping();
@@ -79,10 +80,10 @@ namespace Naren_Dev
 
         public void UpdateEnemyState(EnemyState state)
         {
-            if (enemyState == state) return;
-            enemyState = state;
+            if (m_enemyState == state) return;
+            m_enemyState = state;
 
-            switch (enemyState)
+            switch (m_enemyState)
             {
                 case EnemyState.Alive:
                     AliveState();
@@ -91,6 +92,10 @@ namespace Naren_Dev
                     DeadState();
                     break;
             }
+        }
+        public EnemyState GetEnemyState()
+        {
+            return m_enemyState;
         }
         private void DeadState()
         {
@@ -107,7 +112,7 @@ namespace Naren_Dev
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (enemyState == EnemyState.Dead) return;
+            if (m_enemyState == EnemyState.Dead) return;
             if (other.transform.CompareTag("Player"))
             {
                 GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_PLAYER_DEAD, PlayerState.Dead);

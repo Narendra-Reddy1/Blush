@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 311ea432e8cfa9741878a3d893c6452a
   m_SerializeEntries:
   - m_GUID: ca2a2a0b18291e14ca5598a2c8bdeea7
-    m_Address: Assets/_Game/_SinglePlayer/Scenes/SLevel_0.unity
+    m_Address: SLevel_One
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: a88817d0186b16c42857b9f7e7f52e3b
@@ -35,6 +35,14 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 7bac224d9b409f342ad620ff5e5de6a1
     m_Address: Color_Unlocked_Piece
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c43219f7af2ab244985764801298a518
+    m_Address: SLevel_Two
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bd8855465c60b954aae0ab24d358b019
+    m_Address: SLevel_Three
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

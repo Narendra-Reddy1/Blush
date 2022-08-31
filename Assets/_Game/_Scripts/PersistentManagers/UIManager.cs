@@ -80,6 +80,16 @@ namespace Naren_Dev
 
             // Debug.Log(InputManager.instance.playerAWheelIndex);
         }
+        private IEnumerator _InitializePlayerColors()
+        {
+            yield return PlayerDataManager.IsPlayerDataLoaded();
+            if (PlayerResourcesManager.StoreInventory[ResourceID.FIRST_COLOR_ID].GetBalance() > 0)
+                ShowUnlockColorEffect((int)ColorID.Color_One, false);
+            if (PlayerResourcesManager.StoreInventory[ResourceID.SECOND_COLOR_ID].GetBalance() > 0)
+                ShowUnlockColorEffect((int)ColorID.Color_Two, false);
+            if (PlayerResourcesManager.StoreInventory[ResourceID.THIRD_COLOR_ID].GetBalance() > 0)
+                ShowUnlockColorEffect((int)ColorID.Color_Three, false);
+        }
         public void ShowUnlockColorAnimation(ColorID colorID)
         {
             RectTransform colorPiece = default;

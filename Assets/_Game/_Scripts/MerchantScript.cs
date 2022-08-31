@@ -9,7 +9,7 @@ namespace Naren_Dev
         [SerializeField] private AudioCueEventChannelSO m_audioEventChannel;
         [SerializeField] private SpriteRenderer m_spriteRenderer;
         [SerializeField] private Animator m_merchantAnim;
-        [SerializeField] private Flowchart m_cutSceneChart;
+        [SerializeField] private CutSceneID m_cutSceneID;
 
         private void Awake()
         {
@@ -33,15 +33,14 @@ namespace Naren_Dev
             m_spriteRenderer.enabled = false;
         }
 
-        private async void ShowCutScene()
+        private void ShowCutScene()
         {
             m_spriteRenderer.enabled = true;
             m_audioEventChannel.RaiseSFXPlayEvent(AudioId.MerchantTransitionSFX);
             m_merchantAnim.enabled = true;
             //  m_merchantAnim.SetTrigger("canAppear");
             GetComponent<Collider2D>().enabled = false;
-            await System.Threading.Tasks.Task.Delay(1700);//Time to complete Merchant appearing effect.
-            m_cutSceneChart.ExecuteBlock("START");
+            GameManager.instance.StartNarration(m_cutSceneID.ToString());
 
         }
         private void EndCutScene()
@@ -49,18 +48,12 @@ namespace Naren_Dev
             _Disappear();
             m_merchantAnim.enabled = false;
             m_spriteRenderer.enabled = false;
-            m_cutSceneChart.enabled = false;
+            //  m_cutSceneChart.enabled = false;
+            GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_GAMESTATE_CHANGED, GameState.GamePlay);
 
         }
-        public void RewardPlayer(ColorID colorID)
-        {
-            UIManager.instance.ShowUnlockColorAnimation(colorID);
-            SovereignUtils.Log($"Unlocking Color: {colorID}");
-        }
-        public void TriggerEndCutScene()
-        {
-            GlobalEventHandler.TriggerEvent(EventID.EVENT_ON_GAMESTATE_CHANGED, GameState.GamePlay);
-        }
+
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Player"))

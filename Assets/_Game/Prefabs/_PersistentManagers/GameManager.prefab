@@ -43,11 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc83abbdd32d9446b81b16d5be3f6d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: 0
-  enemyDeathEffect: {fileID: 2392747175402770394, guid: 8035315d4426d584e96d13caa172cbb9, type: 3}
-  wheelSelectionHighlight: {fileID: 5773957131851054054, guid: 7743a0012ad01fb4b8f4bccb55665f0c, type: 3}
-  m_camera: {fileID: 0}
+  m_respawnDelay: 0.5
   m_audioEventChannel: {fileID: 11400000, guid: 5c4d2aa93abf56f42b721d5d3b7b2438, type: 2}
+  m_singlePlayerLevelData: {fileID: 11400000, guid: 11bf1232f30cbfb4aa4cf5589af53f07, type: 2}
   m_gradientMaterials:
   - {fileID: 2100000, guid: 7fb686fe547d0384aacca42c37cd2fc1, type: 2}
   - {fileID: 2100000, guid: af122544e6526ab41b3c8c250dd6321f, type: 2}

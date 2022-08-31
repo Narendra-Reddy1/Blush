@@ -22,7 +22,18 @@ namespace Naren_Dev
         UIButtonClickSFX = 6,
         UIButtonHoverSFX = 7,
     }
-
+    public enum LevelID
+    {
+        SLevel_One,
+        SLevel_Two,
+        SLevel_Three
+    }
+    public enum CutSceneID
+    {
+        Level_One_Color_One,
+        Level_Two_Color_Two,
+        Level_Three_Color_Three
+    }
     public enum ControlScheme
     {
         Touch,

@@ -99,6 +99,21 @@ namespace Naren_Dev
                 return;
             }
             PlayerResourcesManager.StoreInventory = m_playerData.storeInventory;
+            foreach (KeyValuePair<ResourceID,VirtualItem> kvp in PlayerResourcesManager.StoreInventory)
+            {
+                switch (kvp.Key)
+                {
+                    case ResourceID.FIRST_COLOR_ID:
+                        //UIManager.instance.Init()
+                        break;
+                    case ResourceID.SECOND_COLOR_ID:
+                        break;
+                    case ResourceID.THIRD_COLOR_ID:
+                        break;
+                           
+                }
+            }
+
             GlobalVariables.HighestUnlockedLevel = m_playerData.highestUnlockedLevel;
             Debug.Log("Done with Loading");
         }
